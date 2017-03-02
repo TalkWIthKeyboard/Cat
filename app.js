@@ -1,6 +1,6 @@
 'use strict';
 
-let port = process.env.PORT || 3000,
+const port = process.env.PORT || 3000,
   express = require('express'),
   path = require('path'),
   _ = require('underscore'),
@@ -9,6 +9,7 @@ let port = process.env.PORT || 3000,
   bodyParser = require('body-parser'),
   app = express();
 
+mongoose.connect('mongodb://localhost:27017/Cat');
 
 // 设置view的路径
 app.set('views', './views');
@@ -27,8 +28,14 @@ app.locals.moment = require('moment');
 // 监听端口
 app.listen(port);
 
-let modules = require('./routes/module-router');
-app.use('/', modules);
+// 路由分流
+const serverRouter = require('./routes/server-router'),
+  clientRouter = require('./routes/client-router');
+app.use('/server', serverRouter);
+// app.use('/client/', clientRouter);
 
+// 错误处理中间件
+const errorMD = require('./services/middlewareServices/errorMDServices');
+app.use(errorMD.databaseErrorMiddleWare());
 
 module.exports = app;

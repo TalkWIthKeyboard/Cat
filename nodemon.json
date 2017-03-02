@@ -13,7 +13,7 @@
     "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
   },
   "watch": [
-    "Leon"
+    "cat/server-modules"
   ],
   "env": {
     "NODE_ENV": "development",
