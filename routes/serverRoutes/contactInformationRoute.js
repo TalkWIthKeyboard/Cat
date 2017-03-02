@@ -22,7 +22,7 @@ pub.createContact = (req, res, next) => {
   argOps.createArgAndCheck(req.body, arg, ContactInformation, (arg) => {
     let _contact = {};
 
-    argOps.copyArg(_contact, arg);
+    argOps.copyArg(_contact, arg.body);
     contactModel = new ContactInformation(_contact);
     contactModel.save((err) => {
       if (err) return next(err);
@@ -49,7 +49,7 @@ pub.updateContact = (req, res, next) => {
       if (err) return next(err);
 
       let contact = contacts[0];
-      argOps.copyArg(contact, arg);
+      argOps.copyArg(contact, arg.body);
       contact.save((err) => {
         if (err) return next(err);
         resSuccessHandler(res);

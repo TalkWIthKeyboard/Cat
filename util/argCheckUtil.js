@@ -15,21 +15,36 @@ let pub = {},
  */
 pub.createArgAndCheck = (body, arg, module, scb, fcb) => {
 
-  let moduleObj = module.schema.obj;
-  delete moduleObj.meta;
+  arg.body = {};
 
-  _.map(_.keys(moduleObj), (value) => {
-    arg[value] = false;
-  });
+  // 实体类的转换
+  if (module) {
+    let moduleObj = module.schema.obj;
+    delete moduleObj.meta;
 
-  _.mapObject(body, (val, key) => {
-    arg[key] = val;
-  });
+    _.map(_.keys(moduleObj), (value) => {
+      arg.body[value] = false;
+    });
+  }
 
-  let flag = true;
+  // 存在req.body
+  if (body) {
+    _.mapObject(body, (val, key) => {
+      arg.body[key] = val;
+    });
+  }
 
-  _.map(_.values(arg), (value) => {
-    flag = flag && value;
+  let flag = true,
+    checkArg = {};
+
+  // 融合arg的params部分和body部分
+  if (arg.params) {
+    checkArg = _.union(arg.params, arg.body);
+  }
+
+  // 检测arg的body部分
+  _.map(_.values(checkArg), (value) => {
+    flag = !value && typeof value == "boolean" ? false : flag;
   });
 
   flag ? scb(arg) : fcb();
