@@ -32,7 +32,7 @@ app.listen(port);
 const serverRouter = require('./routes/server-router'),
   clientRouter = require('./routes/client-router');
 app.use('/server', serverRouter);
-// app.use('/client/', clientRouter);
+app.use('/client/', clientRouter);
 
 // 错误处理中间件
 const errorMD = require('./services/middlewareServices/errorMDServices');

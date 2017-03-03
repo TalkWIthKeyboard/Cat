@@ -25,5 +25,9 @@ exports.ERROR_INFO = {
   INSIDE_ERR: {
     'number': 402,
     'value': '函数内部错误'
+  },
+  INVALID_ERR: {
+    'number': 403,
+    'value': '无效请求（涉及不存在属性的修改）'
   }
 };

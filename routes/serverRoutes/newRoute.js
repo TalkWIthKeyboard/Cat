@@ -4,10 +4,7 @@
 
 let pub = {},
   New = require('./../../models/NewModel'),
-  errorInfo = require('./../../conf/basicConf').ERROR_INFO,
-  argOps = require('./../../util/argCheckUtil'),
-  resSuccessHandler = require('./../../util/resReturnUtil').resSuccessHandler,
-  resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler;
+  currencyApiUtil = require('./../../util/currencyApiUtil');
 
 /**
  * 创建新闻
@@ -16,21 +13,7 @@ let pub = {},
  * @param next
  */
 pub.createNew = (req, res, next) => {
-
-  let arg = {};
-
-  argOps.createArgAndCheck(req.body, arg, New, (arg) => {
-    let _new = {};
-
-    argOps.copyArg(_new, arg.body);
-    newModel = new New(_new);
-    newModel.save((err) => {
-      if (err) return next(err);
-      resSuccessHandler(res);
-    })
-  }, () => {
-    resErrorHandler(res, errorInfo.REQUEST_ERR);
-  });
+  currencyApiUtil.currencyCreateApi(req, res, New, next);
 };
 
 
@@ -41,23 +24,7 @@ pub.createNew = (req, res, next) => {
  * @param next
  */
 pub.updateNew = (req, res, next) => {
-
-  let arg = {};
-  arg.params = {};
-  arg.params.id = req.params.id || false;
-
-  argOps.createArgAndCheck(req.body, arg, New, (arg) => {
-    New.findById(arg.params.id, (err, _new) => {
-      if (err) return next(err);
-      argOps.copyArg(_new, arg.body);
-      _new.save((err) => {
-        if (err) return next(err);
-        resSuccessHandler(res);
-      })
-    })
-  }, () => {
-    resErrorHandler(res, errorInfo.REQUEST_ERR);
-  })
+  currencyApiUtil.currencyUpdateApi(req, res, New, next);
 };
 
 
@@ -68,19 +35,7 @@ pub.updateNew = (req, res, next) => {
  * @param next
  */
 pub.deleteNew = (req, res, next) => {
-
-  let arg = {};
-  arg.params = {};
-  arg.params.id = req.params.id || false;
-
-  argOps.createArgAndCheck(null, arg, null, (arg) => {
-    New.deleteById(arg.params.id, (err) => {
-      if (err) return next(err);
-      resSuccessHandler(res);
-    })
-  }, () => {
-    resErrorHandler(res, errorInfo.REQUEST_ERR)
-  });
+  currencyApiUtil.currencyDeleteApi(req, res, New, next);
 };
 
 
@@ -90,20 +45,10 @@ pub.deleteNew = (req, res, next) => {
  * @param res
  * @param next
  */
-pub.getNewById = (req, res, next) => {
-
-  let arg = {};
-  arg.params = {};
-  arg.params.id = req.params.id || false;
-
-  argOps.createArgAndCheck(null, arg, null, (arg) => {
-    New.findById(arg.params.id, (err, _new) => {
-      if (err) return next(err);
-      resSuccessHandler(res, {'new': _new});
-    })
-  }, () => {
-    resErrorHandler(res, errorInfo.REQUEST_ERR)
-  });
+pub.getNew = (req, res, next) => {
+  currencyApiUtil.currencyGetApi(req, res, New, (_new) => {
+    resSuccessHandler(res, {'new': _new});
+  }, next)
 };
 
 
@@ -114,22 +59,23 @@ pub.getNewById = (req, res, next) => {
  * @param next
  */
 pub.getNewByPage = (req, res, next) => {
-
-  let arg = {};
-  arg.params = {};
-  arg.params.page = parseInt(req.params.page) || false;
-
-  argOps.createArgAndCheck(null, arg, null, (arg) => {
-    New.findAll(arg.params.page, (err, news) => {
-      if (err) return next(err);
-      resSuccessHandler(res, {
-        'page': arg.params.page + 1,
-        'news': news
-      })
+  currencyApiUtil.currencyGetApiByPage(req, res, New, (page, news) => {
+    resSuccessHandler(res, {
+      'news': news,
+      'page': page + 1
     })
-  }, () => {
-    resErrorHandler(res, errorInfo.REQUEST_ERR)
-  });
+  }, next)
+};
+
+
+/**
+ * 增加浏览记录
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.addLookNum = (req, res, next) => {
+  currencyApiUtil.currencyAddLookApi(req, res, New, next);
 };
 
 

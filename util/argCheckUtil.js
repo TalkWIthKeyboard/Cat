@@ -42,7 +42,7 @@ pub.createArgAndCheck = (body, arg, module, scb, fcb) => {
     checkArg = _.union(arg.params, arg.body);
   }
 
-  // 检测arg的body部分
+  // 检测arg的body和params部分
   _.map(_.values(checkArg), (value) => {
     flag = !value && typeof value == "boolean" ? false : flag;
   });

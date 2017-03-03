@@ -1,15 +1,26 @@
 /**
- * Created by CoderSong on 17/3/1.
+ * Created by CoderSong on 17/3/2.
  */
 
 const mongoose = require('mongoose'),
   config = require('./../conf/basicConf');
 
-let NewSchema = new mongoose.Schema({
-  title: String,
-  subtitle: String,
+let ProductSchema = new mongoose.Schema({
+  // 产品名
+  name: String,
+  // 产品系列
+  series: String,
+  // 产品型号
+  model: String,
+  // 产品详细
   content: String,
-  look: Number,
+  // 产品参数
+  params: String,
+  // 相关产品
+  relatedProducts: [{
+    type : mongoose.Schema.ObjectId,
+    ref : 'Product'
+  }],
   meta: {
     createAt: {
       type: Date,
@@ -22,7 +33,7 @@ let NewSchema = new mongoose.Schema({
   }
 });
 
-NewSchema.pre('save', function (next) {
+ProductSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now()
   }
@@ -32,16 +43,16 @@ NewSchema.pre('save', function (next) {
   next()
 });
 
-NewSchema.statics = {
-  findAllByPage: function (nowPage, cb) {
+ProductSchema.statics = {
+  findBySeriesAll: function (nowPage, series, cb) {
     return this
-      .find({})
+      .find({series: series})
       .skip(nowPage - 1)
       .limit(config.pageSize)
       .sort('meta.createAt')
       .exec(cb)
   },
-  
+
   findById: function (id, cb) {
     return this
       .findOne({_id: id})
@@ -56,4 +67,4 @@ NewSchema.statics = {
 };
 
 
-module.exports = NewSchema;
+module.exports = ProductSchema;
