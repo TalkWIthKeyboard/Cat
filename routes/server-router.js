@@ -7,25 +7,43 @@
 let router = require('express').Router(),
   contactInformation = require('./serverRoutes/contactInformationRoute'),
   newRouter = require('./serverRoutes/newRoute'),
-  productRouter = require('./serverRoutes/productRoute');
+  productRouter = require('./serverRoutes/productRoute'),
+  successExampleRouter = require('./serverRoutes/successExampleRoute'),
+  certificateRouter = require('./serverRoutes/certificateRoute');
 
 // 联系方式相关路由
 router.post('/contact', contactInformation.createContact);
 router.put('/contact', contactInformation.updateContact);
 
-// 新闻相关路由
+// 新闻相关与技术支持路由
 router.post('/new', newRouter.createNew);
 router.put('/new/:id', newRouter.updateNew);
 router.delete('/new/:id', newRouter.deleteNew);
 router.get('/new/:id', newRouter.getNew);
-router.get('/news/:page', newRouter.getNewByPage);
+router.get('/news/page/:page', newRouter.getNewByPage);
 router.get('/new/lookHistory/:id', newRouter.addLookNum);
+router.get('/technology/page/:page', newRouter.getTechnologyByPage);
 
 // 产品相关路由
 router.post('/product', productRouter.createProduct);
 router.put('/product/:id', productRouter.updateProduct);
 router.delete('/product/:id', productRouter.deleteProduct);
 router.get('/product/:id', productRouter.getProduct);
+router.get('/product/series/:series/page/:page', productRouter.getProductBySeriesAndPage);
+
+// 成功案例相关路由
+router.post('/example', successExampleRouter.createSuccessExample);
+router.put('/example/:id', successExampleRouter.updateSuccessExample);
+router.delete('/example/:id', successExampleRouter.deleteSuccessExample);
+router.get('/example/:id', successExampleRouter.getSuccessExample);
+router.get('/example/page/:page', successExampleRouter.getSuccessExampleByPage);
+
+// 资质证书相关路由
+router.post('/certificate', certificateRouter.createCertificate);
+router.put('/certificate/:id', certificateRouter.updateCertificate);
+router.delete('/certificate/:id', certificateRouter.deleteCertificate);
+router.get('/certificate/:id', certificateRouter.getCertificate);
+router.get('/certificate/page/:page', certificateRouter.getCertificateByPage);
 
 
 module.exports = router;

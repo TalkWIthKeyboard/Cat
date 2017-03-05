@@ -6,6 +6,7 @@ let pub = {},
   Product = require('./../../models/ProductModel'),
   errorInfo = require('./../../conf/basicConf').ERROR_INFO,
   currencyApiUtil = require('./../../util/currencyApiUtil'),
+  argOps = require('./../../util/argCheckUtil'),
   resSuccessHandler = require('./../../util/resReturnUtil').resSuccessHandler,
   resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler;
 
@@ -51,6 +52,31 @@ pub.getProduct = (req, res, next) => {
   }, next)
 };
 
+/**
+ * 根据产品系列来分页查找
+ * 分页的时候加上了约束条件，暂时不能使用公用的API
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.getProductBySeriesAndPage = (req, res, next) => {
+  let arg = {};
+  arg.params = {};
+  arg.params.page = parseInt(req.params.page) || false;
+  arg.params.series = req.params.series || false;
+
+  argOps.createArgAndCheck(null, arg, null, (arg) => {
+    Product.findAllBySeriesAndPage(arg.params.page, arg.params.series, (err, products) => {
+      if (err) return next(err);
+      resSuccessHandler(res, {
+        'products': products,
+        'page': arg.params.page + 1
+      })
+    })
+  }, () => {
+    resErrorHandler(res, errorInfo.REQUEST_ERR)
+  })
+};
 
 
 module.exports = pub;

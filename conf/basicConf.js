@@ -4,6 +4,21 @@
 
 exports.pageSize = 12;
 
+exports.NEW_TYPE = {
+
+  NEWS: {
+    'number': 1,
+    'info_cn': '新闻',
+    'info_en': 'news'
+  },
+
+  TECHNOLOGY: {
+    'number': 2,
+    'info_cn': '技术支持',
+    'info_en': 'technology'
+  }
+};
+
 exports.ERROR_INFO = {
 
   SUCCESS: {

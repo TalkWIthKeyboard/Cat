@@ -31,7 +31,7 @@ app.listen(port);
 // 路由分流
 const serverRouter = require('./routes/server-router'),
   clientRouter = require('./routes/client-router');
-app.use('/server', serverRouter);
+app.use('/server/', serverRouter);
 app.use('/client/', clientRouter);
 
 // 错误处理中间件

@@ -4,7 +4,38 @@
 
 let pub = {},
   New = require('./../../models/NewModel'),
-  currencyApiUtil = require('./../../util/currencyApiUtil');
+  newType = require('./../../conf/basicConf').NEW_TYPE,
+  currencyApiUtil = require('./../../util/currencyApiUtil'),
+  argOps = require('./../../util/argCheckUtil'),
+  resSuccessHandler = require('./../../util/resReturnUtil').resSuccessHandler,
+  resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler;
+
+/**
+ * 按种类分页获取
+ * @param req
+ * @param res
+ * @param type
+ * @param next
+ */
+let getInfoByPageAndType = (req, res, type, next) => {
+  let arg = {};
+  arg.params = {};
+  arg.params.page = parseInt(req.params.page) || false;
+
+  argOps.createArgAndCheck(null, arg, null, (arg) => {
+    New.findAllByPageAndType(type.number, arg.params.page, (err, data) => {
+      if (err) return next(err);
+
+      let jsonRes = {};
+      jsonRes[type.info_en] = data;
+      jsonRes['page'] = arg.params.page + 1;
+      resSuccessHandler(res, jsonRes)
+    })
+  }, () => {
+    resErrorHandler(res, errorInfo.REQUEST_ERR)
+  })
+};
+
 
 /**
  * 创建新闻
@@ -59,12 +90,18 @@ pub.getNew = (req, res, next) => {
  * @param next
  */
 pub.getNewByPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, New, (page, news) => {
-    resSuccessHandler(res, {
-      'news': news,
-      'page': page + 1
-    })
-  }, next)
+  getInfoByPageAndType(req, res, newType.NEWS, next);
+};
+
+
+/**
+ * 分页获取技术支持
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.getTechnologyByPage = (req, res, next) => {
+  getInfoByPageAndType(req, res, newType.TECHNOLOGY, next);
 };
 
 

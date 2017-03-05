@@ -21,7 +21,6 @@ pub.currencyCreateApi = (req, res, modelClass, next) => {
 
   let arg = {};
 
-
   argOps.createArgAndCheck(req.body, arg, modelClass, (arg) => {
     let data = {};
 

@@ -1,26 +1,15 @@
 /**
- * Created by CoderSong on 17/3/2.
+ * Created by CoderSong on 17/3/5.
  */
 
 const mongoose = require('mongoose'),
   config = require('./../conf/basicConf');
 
-let ProductSchema = new mongoose.Schema({
-  // 产品名
+let SuccessExampleSchema = new mongoose.Schema({
+  // 证书图片
+  img: String,
+  // 证书图片
   name: String,
-  // 产品系列
-  series: String,
-  // 产品型号
-  model: String,
-  // 产品详细
-  content: String,
-  // 产品参数
-  params: String,
-  // 相关产品
-  relatedProducts: [{
-    type : mongoose.Schema.ObjectId,
-    ref : 'Product'
-  }],
   meta: {
     createAt: {
       type: Date,
@@ -33,7 +22,7 @@ let ProductSchema = new mongoose.Schema({
   }
 });
 
-ProductSchema.pre('save', function (next) {
+SuccessExampleSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now()
   }
@@ -43,10 +32,10 @@ ProductSchema.pre('save', function (next) {
   next()
 });
 
-ProductSchema.statics = {
-  findAllBySeriesAndPage: function (nowPage, series, cb) {
+SuccessExampleSchema.statics = {
+  findAllByPage: function (nowPage, cb) {
     return this
-      .find({series: series})
+      .find({})
       .skip(nowPage - 1)
       .limit(config.pageSize)
       .sort('meta.createAt')
@@ -66,5 +55,4 @@ ProductSchema.statics = {
   }
 };
 
-
-module.exports = ProductSchema;
+module.exports = SuccessExampleSchema;

@@ -10,6 +10,7 @@ let NewSchema = new mongoose.Schema({
   subtitle: String,
   content: String,
   look: Number,
+  type: Number,
   meta: {
     createAt: {
       type: Date,
@@ -33,15 +34,15 @@ NewSchema.pre('save', function (next) {
 });
 
 NewSchema.statics = {
-  findAllByPage: function (nowPage, cb) {
+  findAllByPageAndType: function (type, nowPage, cb) {
     return this
-      .find({})
+      .find({type: type})
       .skip(nowPage - 1)
       .limit(config.pageSize)
       .sort('meta.createAt')
       .exec(cb)
   },
-  
+
   findById: function (id, cb) {
     return this
       .findOne({_id: id})
