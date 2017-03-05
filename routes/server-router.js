@@ -9,7 +9,8 @@ let router = require('express').Router(),
   newRouter = require('./serverRoutes/newRoute'),
   productRouter = require('./serverRoutes/productRoute'),
   successExampleRouter = require('./serverRoutes/successExampleRoute'),
-  certificateRouter = require('./serverRoutes/certificateRoute');
+  certificateRouter = require('./serverRoutes/certificateRoute'),
+  configureRouter = require('./serverRoutes/configureRoute');
 
 // 联系方式相关路由
 router.post('/contact', contactInformation.createContact);
@@ -44,6 +45,14 @@ router.put('/certificate/:id', certificateRouter.updateCertificate);
 router.delete('/certificate/:id', certificateRouter.deleteCertificate);
 router.get('/certificate/:id', certificateRouter.getCertificate);
 router.get('/certificate/page/:page', certificateRouter.getCertificateByPage);
+
+// 系统配置相关路由
+router.post('/configure', configureRouter.createConfigure);
+router.put('/configure/:id', configureRouter.updateConfigure);
+router.delete('/configure/:id', configureRouter.deleteConfigure);
+router.get('/configure/:id', configureRouter.getConfigure);
+router.get('/configure/page/:page', configureRouter.getConfigureByPage);
+router.get('/configure/key/:key', configureRouter.getConfigureByKey);
 
 
 module.exports = router;

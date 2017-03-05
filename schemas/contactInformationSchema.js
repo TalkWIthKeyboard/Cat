@@ -15,6 +15,8 @@ let ContactInformationSchema = new mongoose.Schema({
   telephone: [String],
   // 传真
   fax: [String],
+  // 邮箱
+  email: [String],
   // 地址
   address: String,
   meta: {
