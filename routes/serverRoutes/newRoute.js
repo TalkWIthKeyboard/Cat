@@ -44,7 +44,7 @@ let getInfoByPageAndType = (req, res, type, next) => {
  * @param next
  */
 pub.createNew = (req, res, next) => {
-  currencyApiUtil.currencyCreateApi(req, res, New, next);
+  currencyApiUtil.currencyCreateApi(req, res, New, null, next);
 };
 
 

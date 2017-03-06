@@ -16,7 +16,7 @@ let pub = {},
  * @param next
  */
 pub.createContact = (req, res, next) => {
-  currencyApiUtil.currencyCreateApi(req, res, ContactInformation, next);
+  currencyApiUtil.currencyCreateApi(req, res, ContactInformation, null, next);
 };
 
 /**

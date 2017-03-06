@@ -44,5 +44,9 @@ exports.ERROR_INFO = {
   INVALID_ERR: {
     'number': 403,
     'value': '无效请求（涉及不存在属性的修改）'
+  },
+  EXIST_ERR: {
+    'number': 404,
+    'value': '已经存在该对象'
   }
 };

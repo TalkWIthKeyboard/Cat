@@ -10,26 +10,58 @@ const pub = {},
   resErrorHandler = require('./resReturnUtil').resErrorHandler,
   _ = require('underscore');
 
+
 /**
- * 全部class类参数参加的createAPI
- * @param req
+ * 保存对象的操作
  * @param res
+ * @param arg
  * @param modelClass
  * @param next
  */
-pub.currencyCreateApi = (req, res, modelClass, next) => {
+let saveObjFunc = (res, arg, modelClass, next) => {
+
+  let data = {};
+  argOps.copyArg(data, arg.body);
+  dataModel = new modelClass(data);
+  dataModel.save((err) => {
+    if (err) return next(err);
+    resSuccessHandler(res);
+  })
+};
+
+
+/**
+ * 全部class类参数参加的createAPI
+ *（如果需要检查是否重复，需要配置checkIsExist方法
+ * @param req
+ * @param res
+ * @param modelClass
+ * @param key
+ * @param next
+ */
+pub.currencyCreateApi = (req, res, modelClass, key, next) => {
 
   let arg = {};
 
   argOps.createArgAndCheck(req.body, arg, modelClass, (arg) => {
-    let data = {};
+    if (key) {
+      let checkIsExistPromise = new Promise((resolve, reject) => {
+        modelClass.checkIsExist(arg.body[key], (err, obj) => {
+          err ? reject(err) : resolve(obj)
+        })
+      });
 
-    argOps.copyArg(data, arg.body);
-    dataModel = new modelClass(data);
-    dataModel.save((err) => {
-      if (err) return next(err);
-      resSuccessHandler(res);
-    })
+      // 检查重复
+      checkIsExistPromise.then((obj) => {
+        obj
+          ? resErrorHandler(res, errorInfo.EXIST_ERR)
+          : saveObjFunc(res, arg, modelClass, next)
+      }, (err) => {
+        return next(err);
+      });
+    } else {
+      saveObjFunc(res, arg, modelClass, next)
+    }
   }, () => {
     resErrorHandler(res, errorInfo.REQUEST_ERR);
   });

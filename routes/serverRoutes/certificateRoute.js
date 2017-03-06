@@ -14,7 +14,7 @@ let pub = {},
  * @param next
  */
 pub.createCertificate = (req, res, next) => {
-  currencyApiUtil.currencyCreateApi(req, res, Certificate, next);
+  currencyApiUtil.currencyCreateApi(req, res, Certificate, 'name', next);
 };
 
 

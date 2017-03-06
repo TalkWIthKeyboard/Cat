@@ -43,7 +43,7 @@ ConfigureSchema.statics = {
       .exec(cb)
   },
 
-  findByKey: function (key, cb) {
+  checkIsExist: function (key, cb) {
     return this
       .findOne({key: key})
       .exec(cb)

@@ -17,7 +17,7 @@ let pub = {},
  * @param next
  */
 pub.createConfigure = (req, res, next) => {
-  currencyApiUtil.currencyCreateApi(req, res, Configure, next);
+  currencyApiUtil.currencyCreateApi(req, res, Configure, 'key', next);
 };
 
 
@@ -84,7 +84,7 @@ pub.getConfigureByKey = (req, res, next) => {
   arg.params.key = req.params.key || false;
 
   argOps.createArgAndCheck(null, arg, null, (arg) => {
-    Configure.findByKey(arg.params.key, (err, obj) => {
+    Configure.checkIsExist(arg.params.key, (err, obj) => {
       if (err) return next(err);
       resSuccessHandler(res, {'obj': obj})
     })

@@ -14,7 +14,7 @@ let pub = {},
  * @param next
  */
 pub.createSuccessExample = (req, res, next) => {
-  currencyApiUtil.currencyCreateApi(req, res, SuccessExample, next);
+  currencyApiUtil.currencyCreateApi(req, res, SuccessExample, 'schoolName', next);
 };
 
 

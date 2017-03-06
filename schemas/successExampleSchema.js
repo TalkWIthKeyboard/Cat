@@ -42,6 +42,12 @@ SuccessExampleSchema.statics = {
       .exec(cb)
   },
 
+  checkIsExist: function (schoolName, cb) {
+    return this
+      .findOne({schoolName: schoolName})
+      .exec(cb)
+  },
+
   findById: function (id, cb) {
     return this
       .findOne({_id: id})
