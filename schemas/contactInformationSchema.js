@@ -42,9 +42,9 @@ ContactInformationSchema.pre('save', function (next) {
 });
 
 ContactInformationSchema.statics = {
-  findAll: function (cb) {
+  findFirst: function (cb) {
     return this
-      .find({})
+      .findOne({})
       .exec(cb)
   }
 };

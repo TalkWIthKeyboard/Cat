@@ -5,7 +5,7 @@
 'use strict';
 
 let router = require('express').Router(),
-  contactInformation = require('./serverRoutes/contactInformationRoute'),
+  pageRouter = require('./clientRoutes/pageRoute'),
   newRouter = require('./serverRoutes/newRoute');
 
 // 联系方式相关路由
@@ -13,5 +13,11 @@ let router = require('express').Router(),
 // 新闻相关路由
 router.get('/new/lookHistory/:id', newRouter.addLookNum);
 
+// 页面路由
+router.get('/index', pageRouter.mainPage);
+router.get('/aboutMe', pageRouter.aboutMePage);
+router.get('/aboutMe/businessCulture', pageRouter.businessCulturePage);
+router.get('/aboutMe/businessJoin', pageRouter.businessJoin);
+router.get('/productShow', pageRouter.productShow);
 
 module.exports = router;

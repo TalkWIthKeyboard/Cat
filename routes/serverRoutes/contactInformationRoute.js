@@ -31,10 +31,9 @@ pub.updateContact = (req, res, next) => {
   let arg = {};
 
   argOps.createArgAndCheck(req.body, arg, null, (arg) => {
-    ContactInformation.findAll((err, contacts) => {
+    ContactInformation.findFirst((err, contact) => {
       if (err) return next(err);
 
-      let contact = contacts[0];
       argOps.copyArg(contact, arg.body);
       contact.save((err) => {
         if (err) return next(err);

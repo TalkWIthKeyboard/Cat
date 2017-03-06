@@ -53,6 +53,15 @@ ProductSchema.statics = {
       .exec(cb)
   },
 
+  findAllByPage: function (nowPage, cb) {
+    return this
+      .find({})
+      .skip(nowPage - 1)
+      .limit(config.pageSize)
+      .sort('meta.createAt')
+      .exec(cb)
+  },
+
   findById: function (id, cb) {
     return this
       .findOne({_id: id})
