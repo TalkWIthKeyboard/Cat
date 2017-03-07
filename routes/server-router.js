@@ -10,7 +10,8 @@ let router = require('express').Router(),
   productRouter = require('./serverRoutes/productRoute'),
   successExampleRouter = require('./serverRoutes/successExampleRoute'),
   certificateRouter = require('./serverRoutes/certificateRoute'),
-  configureRouter = require('./serverRoutes/configureRoute');
+  configureRouter = require('./serverRoutes/configureRoute'),
+  downloadRouter = require('./serverRoutes/downloadRoute');
 
 // 联系方式相关路由
 router.post('/contact', contactInformation.createContact);
@@ -54,5 +55,11 @@ router.get('/configure/:id', configureRouter.getConfigure);
 router.get('/configure/page/:page', configureRouter.getConfigureByPage);
 router.get('/configure/key/:key', configureRouter.getConfigureByKey);
 
+// 下载文件相关路由
+router.post('/download', downloadRouter.createDownload);
+router.put('/download/:id', downloadRouter.updateDownload);
+router.delete('/download/:id', downloadRouter.deleteDownload);
+router.get('/download/:id', downloadRouter.getDownload);
+router.get('/download/page/:page', downloadRouter.getDownloadByPage);
 
 module.exports = router;

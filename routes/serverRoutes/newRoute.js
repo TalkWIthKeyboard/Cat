@@ -84,7 +84,7 @@ pub.getNew = (req, res, next) => {
 
 
 /**
- * 分页获取新闻
+ * 分页获取企业新闻
  * @param req
  * @param res
  * @param next
@@ -102,6 +102,28 @@ pub.getNewByPage = (req, res, next) => {
  */
 pub.getTechnologyByPage = (req, res, next) => {
   getInfoByPageAndType(req, res, newType.TECHNOLOGY, next);
+};
+
+
+/**
+ * 分页获取行业动态
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.getDynamicByPage = (req, res, next) => {
+  getInfoByPageAndType(req, res, newType.DYNAMIC, next);
+};
+
+
+/**
+ * 分页获取产品新闻
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.getProductNewByPage = (req, res, next) => {
+  getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
 };
 
 

@@ -17,7 +17,23 @@ router.get('/new/lookHistory/:id', newRouter.addLookNum);
 router.get('/index', pageRouter.mainPage);
 router.get('/aboutMe', pageRouter.aboutMePage);
 router.get('/aboutMe/businessCulture', pageRouter.businessCulturePage);
-router.get('/aboutMe/businessJoin', pageRouter.businessJoin);
-router.get('/productShow', pageRouter.productShow);
+router.get('/aboutMe/businessJoin', pageRouter.businessJoinPage);
+
+router.get('/productShow/page/:page', pageRouter.productShowPage);
+
+router.get('/news/companyNew/page/:page', pageRouter.companyNewPage);
+router.get('/news/dynamic/page/:page', pageRouter.dynamicPage);
+router.get('/news/productNew/page/:page', pageRouter.productNewsPage);
+
+router.get('/technology/page/:page', pageRouter.technologyPage);
+router.get('/download/page/:page', pageRouter.downloadPage);
+
+router.get('/success/page/:page', pageRouter.successExamplePage);
+router.get('/certificate/page/:page', pageRouter.certificatePage);
+
+router.get('/contact', pageRouter.contactPage);
+
+
+
 
 module.exports = router;

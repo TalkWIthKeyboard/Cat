@@ -8,7 +8,7 @@ exports.NEW_TYPE = {
 
   NEWS: {
     'number': 1,
-    'info_cn': '新闻',
+    'info_cn': '企业新闻',
     'info_en': 'news'
   },
 
@@ -16,6 +16,18 @@ exports.NEW_TYPE = {
     'number': 2,
     'info_cn': '技术支持',
     'info_en': 'technology'
+  },
+
+  DYNAMIC: {
+    'number': 3,
+    'info_cn': '行业动态',
+    'info_en': 'dynamic'
+  },
+
+  PRODUCT_NEW: {
+    'number': 4,
+    'info_cn': '产品新闻',
+    'info_en': 'productNew'
   }
 };
 

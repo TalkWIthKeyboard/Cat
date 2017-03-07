@@ -7,35 +7,22 @@ let pub = {},
   New = require('./../models/NewModel'),
   Product = require('./../models/ProductModel'),
   Certificate = require('./../models/CertificateModel'),
+  Download = require('./../models/DownloadModel'),
   Configure = require('./../models/ConfigureModel'),
   ContactInformation = require('./../models/ContactInformationModel'),
   SuccessExample = require('./../models/SuccessExampleModel'),
   newType = require('./../conf/basicConf').NEW_TYPE;
 
 /**
- * 获取新闻的第几页
+ * 获取某种新闻的第几页
+ * @param type
  * @param page
- * @returns {Promise}
  */
-pub.getNewsPromise = (page) => {
+pub.getNewsPromise = (type, page) => {
   return new Promise((resolve) => {
-    New.findAllByPageAndType(newType.NEWS.number, page, (err, news) => {
+    New.findAllByPageAndType(type, page, (err, news) => {
       if (err) return next(err);
       resolve(news);
-    })
-  });
-};
-
-/**
- * 获取技术支持的第几页
- * @param page
- * @returns {Promise}
- */
-pub.getTechnologyPromise = (page) => {
-  return new Promise((resolve) => {
-    New.findAllByPageAndType(newType.TECHNOLOGY.number, page, (err, technology) => {
-      if (err) return next(err);
-      resolve(technology);
     })
   });
 };
@@ -76,6 +63,44 @@ pub.getContactPromise = () => {
     ContactInformation.findFirst((err, contact) => {
       if (err) return next(err);
       resolve(contact);
+    })
+  })
+};
+
+/**
+ * 获取下载文件的第几页
+ */
+pub.getDownloadPromise = (page) => {
+  return new Promise((resolve) => {
+    Download.findAllByPage(page, (err, download) => {
+      if (err) return next(err);
+      resolve(download);
+    })
+  })
+};
+
+/**
+ * 获取成功案例的第几页
+ * @param page
+ */
+pub.getSuccessExamplePromise = (page) => {
+  return new Promise((resolve) => {
+    SuccessExample.findAllByPage(page, (err, se) => {
+      if (err) return next(err);
+      resolve(se);
+    })
+  })
+};
+
+/**
+ * 获取资质证书的第几页
+ * @param page
+ */
+pub.getCertificatePromise = (page) => {
+  return new Promise((resolve) => {
+    Certificate.findAllByPage(page, (err, certificate) => {
+      if (err) return next(err);
+      resolve(certificate);
     })
   })
 };
