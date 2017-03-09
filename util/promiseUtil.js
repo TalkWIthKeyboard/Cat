@@ -10,8 +10,7 @@ let pub = {},
   Download = require('./../models/DownloadModel'),
   Configure = require('./../models/ConfigureModel'),
   ContactInformation = require('./../models/ContactInformationModel'),
-  SuccessExample = require('./../models/SuccessExampleModel'),
-  newType = require('./../conf/basicConf').NEW_TYPE;
+  SuccessExample = require('./../models/SuccessExampleModel');
 
 /**
  * 获取某种新闻的第几页
@@ -19,11 +18,9 @@ let pub = {},
  * @param page
  */
 pub.getNewsPromise = (type, page) => {
-  return new Promise((resolve) => {
-    // New.findAllByPageAndType(type, page, (err, news) => {
-    New.findAllByPageAndType(type.number, page, (err, news) => {
-      if (err) return next(err);
-      resolve(news);
+  return new Promise((resolve, reject) => {
+    New.findAllByPageAndType(type, page, (err, news) => {
+      err ? reject(err) : resolve(news);
     })
   });
 };
@@ -33,10 +30,9 @@ pub.getNewsPromise = (type, page) => {
  * @returns {Promise}
  */
 pub.getConfigurePromise = (key) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     Configure.checkIsExist(key, (err, obj) => {
-      if (err) return next(err);
-      resolve(obj);
+      err ? reject(err) : resolve(obj);
     })
   });
 };
@@ -47,10 +43,9 @@ pub.getConfigurePromise = (key) => {
  * @returns {Promise}
  */
 pub.getProductPromise = (page) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     Product.findAllByPage(page, (err, product) => {
-      if (err) return next(err);
-      resolve(product);
+      err ? reject(err) : resolve(product);
     })
   })
 };
@@ -60,10 +55,9 @@ pub.getProductPromise = (page) => {
  * @returns {Promise}
  */
 pub.getContactPromise = () => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     ContactInformation.findFirst((err, contact) => {
-      if (err) return next(err);
-      resolve(contact);
+      err ? reject(err) : resolve(contact);
     })
   })
 };
@@ -72,10 +66,9 @@ pub.getContactPromise = () => {
  * 获取下载文件的第几页
  */
 pub.getDownloadPromise = (page) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     Download.findAllByPage(page, (err, download) => {
-      if (err) return next(err);
-      resolve(download);
+      err ? reject(err) : resolve(download);
     })
   })
 };
@@ -85,10 +78,9 @@ pub.getDownloadPromise = (page) => {
  * @param page
  */
 pub.getSuccessExamplePromise = (page) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     SuccessExample.findAllByPage(page, (err, se) => {
-      if (err) return next(err);
-      resolve(se);
+      err ? reject(err) : resolve(se);
     })
   })
 };
@@ -98,10 +90,9 @@ pub.getSuccessExamplePromise = (page) => {
  * @param page
  */
 pub.getCertificatePromise = (page) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     Certificate.findAllByPage(page, (err, certificate) => {
-      if (err) return next(err);
-      resolve(certificate);
+      err ? reject(err) : resolve(certificate);
     })
   })
 };
