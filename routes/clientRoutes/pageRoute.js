@@ -17,8 +17,9 @@ let pub = {},
  * @param res
  * @param makeList
  * @param scb
+ * @param next
  */
-let getPageWithPage = (req, res, makeList, scb) => {
+let getPageWithPage = (req, res, makeList, scb, next) => {
 
   let page = req.params.page || false;
 
@@ -26,6 +27,8 @@ let getPageWithPage = (req, res, makeList, scb) => {
     let promiseList = makeList(page);
     Promise.all(promiseList).then((results) => {
       scb(results, page)
+    }).catch((err) => {
+      next(err)
     })
   } else {
     resErrorHandler(res, errorInfo.REQUEST_ERR)
@@ -38,10 +41,13 @@ let getPageWithPage = (req, res, makeList, scb) => {
  * @param res
  * @param promiseList
  * @param scb
+ * @param next
  */
-let getPageWithoutParams = (req, res, promiseList, scb) => {
+let getPageWithoutParams = (req, res, promiseList, scb, next) => {
   Promise.all(promiseList).then((results) => {
     scb(results)
+  }).catch((err) => {
+    next(err)
   })
 };
 
@@ -49,12 +55,13 @@ let getPageWithoutParams = (req, res, promiseList, scb) => {
  * 主页
  * @param req
  * @param res
+ * @param next
  */
-pub.mainPage = (req, res) => {
+pub.mainPage = (req, res, next) => {
 
   let promiseList = [
-    promiseUtil.getNewsPromise(newType.NEWS, 1),
-    promiseUtil.getNewsPromise(newType.TECHNOLOGY, 1),
+    promiseUtil.getNewsPromise(newType.NEWS.number, 1),
+    promiseUtil.getNewsPromise(newType.TECHNOLOGY.number, 1),
     promiseUtil.getConfigurePromise('aboutMe'),
     promiseUtil.getProductPromise(1),
     promiseUtil.getContactPromise()
@@ -68,15 +75,16 @@ pub.mainPage = (req, res) => {
       'product': results[3],
       'contact': results[4]
     })
-  });
+  }, next);
 };
 
 /**
  * 关于我们页面
  * @param req
  * @param res
+ * @param next
  */
-pub.aboutMePage = (req, res) => {
+pub.aboutMePage = (req, res, next) => {
 
   let promiseList = [
     promiseUtil.getConfigurePromise('aboutMe'),
@@ -88,15 +96,16 @@ pub.aboutMePage = (req, res) => {
       'about': results[0],
       'contact': results[1]
     })
-  });
+  }, next);
 };
 
 /**
  * 企业文化页面
  * @param req
  * @param res
+ * @param next
  */
-pub.businessCulturePage = (req, res) => {
+pub.businessCulturePage = (req, res, next) => {
 
   let promiseList = [
     promiseUtil.getConfigurePromise('businessCulture'),
@@ -108,15 +117,16 @@ pub.businessCulturePage = (req, res) => {
       'businessCulture': results[0],
       'contact': results[1]
     })
-  });
+  }, next);
 };
 
 /**
  * 企业加盟页面
  * @param req
  * @param res
+ * @param next
  */
-pub.businessJoinPage = (req, res) => {
+pub.businessJoinPage = (req, res, next) => {
 
   let promiseList = [
     promiseUtil.getConfigurePromise('businessJoin'),
@@ -128,15 +138,16 @@ pub.businessJoinPage = (req, res) => {
       'businessJoin': results[0],
       'contact': results[1]
     })
-  });
+  }, next);
 };
 
 /**
  * 产品展示页面
  * @param req
  * @param res
+ * @param next
  */
-pub.productShowPage = (req, res) => {
+pub.productShowPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -149,15 +160,16 @@ pub.productShowPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 企业新闻页面
  * @param req
  * @param res
+ * @param next
  */
-pub.companyNewPage = (req, res) => {
+pub.companyNewPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -170,15 +182,16 @@ pub.companyNewPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 行业动态页面
  * @param req
  * @param res
+ * @param next
  */
-pub.dynamicPage = (req, res) => {
+pub.dynamicPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -191,15 +204,16 @@ pub.dynamicPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 产品新闻页面
  * @param req
  * @param res
+ * @param next
  */
-pub.productNewsPage = (req, res) => {
+pub.productNewsPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -212,15 +226,16 @@ pub.productNewsPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 技术支持页面
  * @param req
  * @param res
+ * @param next
  */
-pub.technologyPage = (req, res) => {
+pub.technologyPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -233,15 +248,16 @@ pub.technologyPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 下载中心页面
  * @param req
  * @param res
+ * @param next
  */
-pub.downloadPage = (req, res) => {
+pub.downloadPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -254,15 +270,16 @@ pub.downloadPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 下载中心页面
  * @param req
  * @param res
+ * @param next
  */
-pub.downloadPage = (req, res) => {
+pub.downloadPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -275,15 +292,16 @@ pub.downloadPage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 成功案例页面
  * @param req
  * @param res
+ * @param next
  */
-pub.successExamplePage = (req, res) => {
+pub.successExamplePage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -296,15 +314,16 @@ pub.successExamplePage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 资质证书页面
  * @param req
  * @param res
+ * @param next
  */
-pub.certificatePage = (req, res) => {
+pub.certificatePage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
@@ -317,15 +336,16 @@ pub.certificatePage = (req, res) => {
       'contact': results[1],
       'page': page + 1
     })
-  });
+  }, next);
 };
 
 /**
  * 联系我们页面
  * @param req
  * @param res
+ * @param next
  */
-pub.contactPage = (req, res) => {
+pub.contactPage = (req, res, next) => {
 
   let promiseList = [
     promiseUtil.getContactPromise()
@@ -335,7 +355,7 @@ pub.contactPage = (req, res) => {
     resSuccessHandler(res, {
       'contact': results[0],
     })
-  });
+  }, next);
 };
 
 module.exports = pub;
