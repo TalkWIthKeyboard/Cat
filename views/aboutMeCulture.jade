@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  include topSide
+  .x8.x2-move(style='float: none;')
+    .line
+      include contactSide
+      .x9
+        .padding-big-left
+          .border
+            .line.padding-big-top.padding-big-left.padding-big-right
+              ul.float-right.bread
+                li
+                  a.icon-home(href='./index') 首页
+                li
+                  a(href='./aboutMe') 关于
+                li
+                  a(href='./aboutMeCulture') 企业文化
+              h1 公司简介
+            hr
+            .line.padding-big
+              - console.log(businessCulture)
+              //p= businessCulture.value

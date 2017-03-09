@@ -9,19 +9,62 @@ block content 
         img(src='/images/img2.jpg')
       .item
         img(src='/images/img3.jpg')
-  .container
-    .line.x8.x2-move.margin-big-top
-      .line-small.list-box
-        .x3(style='border-right: 1px solid #cccccc; padding: 20px;')
-          p 产品
-          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
-        .x3(style='border-right: 1px solid #cccccc; padding: 20px;')
-          p 新闻
-          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
-        .x3(style='border-right: 1px solid #cccccc; padding: 20px;')
-          p 案例
-          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
-        .x3(style='padding: 20px;')
-          p 联系
-          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
+  div.x2-move.x8(style='float: none;')
+    .line.margin-big-top
+      .line.margin-small-bottom
+        .x6
+          h1.height-large 新闻中心
+          ul.list-unstyle.height-big.margin-big-left(style='list-style: square; color: red')
+            each newsInfo in news
+              li
+                a(href='#')= newsInfo.title
+        .x6
+          h1.height-large 技术支持
+          ul.list-unstyle.height-big.margin-big-left(style='list-style: square; color: red')
+            each technologyInfo in technology
+              li
+                a(href='#')= technologyInfo.title
       .line
+        .x6
+          a.button.bg-sub.float-right(href='#') 更多...
+        .x6
+          a.button.bg-sub.float-right(href='#') 更多...
+      hr.bg-sub
+      .line.margin-big-bottom
+        .line
+          a.button.bg-sub.float-right(href='#') 更多...
+          h1.height-large 产品中心
+        each productItem, index in product
+          if index <= 3
+            .xl3.padding-big.bg-blue-light
+              img.margin-big-bottom(src='/images/product.jpg' style='width: 100%;')
+              a(href='#')= productItem.name
+              br
+              br
+              span.tag.bg-dot= productItem.series
+      hr.bg-sub
+      .line
+        .x6
+          h1.height-large 关于我们
+          p.padding-small(style='padding-right: 20px;')= about.value
+        .x6
+          h1.height-large 联系我们
+          dl.padding-big
+            dt 联系人
+            dd
+              each person in contact.peoplePhone
+                span= `${person.name}: ${person.phone}`
+            dt 联系电话
+            dd
+              each phone in contact.telephone
+                span= phone
+            dt 传真
+            dd
+              each faxInfo in contact.fax
+                span= faxInfo
+            dt Email
+            dd
+              each emailInfo in contact.email
+                span= emailInfo
+            dt 地址
+            dd= contact.address

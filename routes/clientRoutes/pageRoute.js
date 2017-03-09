@@ -10,6 +10,8 @@ let pub = {},
   errorInfo = require('./../../conf/basicConf').ERROR_INFO,
   Promise = require('promise');
 
+const frontEndConf = require('../../conf/frontEndConf')
+
 
 /**
  * req携带page参数的路由访问模板
@@ -68,7 +70,8 @@ pub.mainPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
+    res.render('index', {
+      layout: false,
       'news': results[0],
       'technology': results[1],
       'about': results[2],
@@ -92,7 +95,9 @@ pub.aboutMePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
+    res.render('aboutMe', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
       'about': results[0],
       'contact': results[1]
     })
@@ -113,7 +118,9 @@ pub.businessCulturePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
+    res.render('aboutMeCulture', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
       'businessCulture': results[0],
       'contact': results[1]
     })
