@@ -61,13 +61,14 @@ pub.mainPage = (req, res) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'news': results[0],
-      'technology': results[1],
-      'about': results[2],
-      'product': results[3],
-      'contact': results[4]
-    })
+    console.log(results)
+    // res.render('index', {
+    //   'news': results[0],
+    //   'technology': results[1],
+    //   'about': results[2],
+    //   'product': results[3],
+    //   'contact': results[4]
+    // })
   });
 };
 

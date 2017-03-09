@@ -1,5 +1,27 @@
-extends layout
+extends layout  
 
-block content
-  h1= title
-  p Welcome to #{title}
+block content 
+  .banner.x2-move(style='width: 66.6666667%')
+    .carousel
+      .item
+        img(src='/images/img1.jpg')
+      .item
+        img(src='/images/img2.jpg')
+      .item
+        img(src='/images/img3.jpg')
+  .container
+    .line.x8.x2-move.margin-big-top
+      .line-small.list-box
+        .x3(style='border-right: 1px solid #cccccc; padding: 20px;')
+          p 产品
+          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
+        .x3(style='border-right: 1px solid #cccccc; padding: 20px;')
+          p 新闻
+          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
+        .x3(style='border-right: 1px solid #cccccc; padding: 20px;')
+          p 案例
+          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
+        .x3(style='padding: 20px;')
+          p 联系
+          img(src='http://litianem.com/Uploads/201412/54a1095e6347c.jpg' style='width: 100%;')
+      .line

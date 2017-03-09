@@ -20,7 +20,8 @@ let pub = {},
  */
 pub.getNewsPromise = (type, page) => {
   return new Promise((resolve) => {
-    New.findAllByPageAndType(type, page, (err, news) => {
+    // New.findAllByPageAndType(type, page, (err, news) => {
+    New.findAllByPageAndType(type.number, page, (err, news) => {
       if (err) return next(err);
       resolve(news);
     })
