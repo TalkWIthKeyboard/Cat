@@ -97,4 +97,18 @@ pub.getCertificatePromise = (page) => {
   })
 };
 
+
+/**
+ * 分种类获取产品的第几页
+ * @param series
+ * @param page
+ */
+pub.getProductBySeriesPromise = (series, page) => {
+  return new Promise((resolve, reject) => {
+    Product.findAllBySeriesAndPage(page, series, (err, products) => {
+      err ? reject(err) : resolve(products)
+    })
+  })
+};
+
 module.exports = pub;

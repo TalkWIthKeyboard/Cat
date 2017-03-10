@@ -47,7 +47,7 @@ ProductSchema.statics = {
   findAllBySeriesAndPage: function (nowPage, series, cb) {
     return this
       .find({series: series})
-      .skip(nowPage - 1)
+      .skip((nowPage - 1) * config.pageSize)
       .limit(config.pageSize)
       .sort('meta.createAt')
       .exec(cb)
@@ -56,7 +56,7 @@ ProductSchema.statics = {
   findAllByPage: function (nowPage, cb) {
     return this
       .find({})
-      .skip(nowPage - 1)
+      .skip((nowPage - 1) * config.pageSize)
       .limit(config.pageSize)
       .sort('meta.createAt')
       .exec(cb)

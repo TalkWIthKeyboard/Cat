@@ -35,7 +35,7 @@ DownloadSchema.statics = {
   findAllByPage: function (nowPage, cb) {
     return this
       .find({})
-      .skip(nowPage - 1)
+      .skip((nowPage - 1) * config.pageSize)
       .limit(config.pageSize)
       .sort('meta.createAt')
       .exec(cb)
