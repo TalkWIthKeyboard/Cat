@@ -54,7 +54,6 @@ ProductSchema.statics = {
   },
 
   findAllByPage: function (nowPage, cb) {
-    console.log(nowPage)
     return this
       .find({})
       .skip(nowPage - 1)
