@@ -36,12 +36,13 @@ block content 
           h1.height-large 产品中心
         each productItem, index in product
           if index <= 3
-            .xl3.padding-big.bg-blue-light
-              img.margin-big-bottom(src='/images/product.jpg' style='width: 100%;')
-              a(href='#')= productItem.name
-              br
-              br
-              span.tag.bg-dot= productItem.series
+            .xl3.padding-small
+              .padding-big.bg-yellow-light
+                img.margin-big-bottom(src='/images/product.jpg' style='width: 100%;')
+                a(href='#')= productItem.name
+                br
+                br
+                span.tag.bg-dot= productItem.series
       hr.bg-sub
       .line
         .x6

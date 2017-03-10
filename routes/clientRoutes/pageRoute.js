@@ -24,8 +24,7 @@ const frontEndConf = require('../../conf/frontEndConf')
  */
 let getPageWithPage = (req, res, makeList, scb, next) => {
 
-  // let page = req.params.page || false;
-  let page = req.params.page || 1
+  let page = req.params.page || false;
 
   if (page) {
     let promiseList = makeList(page);
@@ -171,10 +170,10 @@ pub.productShowPage = (req, res, next) => {
   }, (results, page) => {
     res.render('productsPage', {
       layout: false,
-      conf: frontEndConf.aboutMe,
+      conf: frontEndConf.product,
       products: results[0],
       contact: results[1],
-      page: page + 1
+      page: parseInt(page)
     })
   }, next);
 };
@@ -193,10 +192,13 @@ pub.companyNewPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
+    res.render('newsPage', {
+      layout: false,
+      conf: frontEndConf.news,
       'companyNews': results[0],
+      newsType: '企业新闻',
       'contact': results[1],
-      'page': page + 1
+      'page': parseInt(page)
     })
   }, next);
 };
@@ -396,10 +398,13 @@ pub.productBySeriesPage = (req, res, next) => {
     ];
 
     Promise.all(promiseList).then((results) => {
-      resSuccessHandler(res, {
+      res.render('productsPage', {
+        layout: false,
+        conf: frontEndConf.product,
         'products': results[0],
         'contact': results[1],
-        'page': arg.params.page + 1
+        series: arg.params.series,
+        page: parseInt(arg.params.page)
       })
     }).catch((err) => {
       next(err)

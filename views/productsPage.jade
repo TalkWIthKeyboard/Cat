@@ -14,7 +14,18 @@ block content
                   a.icon-home(href='/client/index') 首页
                 li
                   a(href='/client/contact') 产品展示
-                li
-                  a(href='#') 联系方式
-              h1 联系方式
+                if series
+                  li
+                    a(href=`/client/productShow/series/${series}/page/1`)= series
+              h1 产品展示
             hr
+            .line
+              each product in products
+                .xl3.padding-small
+                  .padding-big.bg-yellow-light
+                    img.margin-big-bottom(src='/images/product.jpg' style='width: 100%;')
+                    a(href='#')= product.name
+                    br
+                    br
+                    span.tag.bg-dot= product.series
+            include pager

@@ -1,0 +1,9 @@
+.line.margin-big.text-center
+  ul.pagination.pagination-group
+    li
+      a(href='#') 首页
+    each i in [-2, -1, 0, 1, 2]
+      li
+        a(href='#')= page + i
+    li
+      a(href='#') 末页
