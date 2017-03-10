@@ -41,6 +41,13 @@ DownloadSchema.statics = {
       .exec(cb)
   },
 
+  findAllCount: function (cb) {
+    return this
+      .find({})
+      .count()
+      .exec(cb)
+  },
+
   findById: function (id, cb) {
     return this
       .findOne({_id: id})

@@ -9,7 +9,11 @@ let pub = {},
   newType = require('./../../conf/basicConf').NEW_TYPE,
   errorInfo = require('./../../conf/basicConf').ERROR_INFO,
   argOps = require('./../../util/argCheckUtil'),
-  Promise = require('promise');
+  Promise = require('promise'),
+  Product = require('./../../models/ProductModel'),
+  Certificate = require('./../../models/CertificateModel'),
+  Download = require('./../../models/DownloadModel'),
+  SuccessExample = require('./../../models/SuccessExampleModel');
 
 const frontEndConf = require('../../conf/frontEndConf')
 
@@ -63,10 +67,10 @@ let getPageWithoutParams = (req, res, promiseList, scb, next) => {
 pub.mainPage = (req, res, next) => {
 
   let promiseList = [
-    promiseUtil.getNewsPromise(newType.NEWS.number, 1),
-    promiseUtil.getNewsPromise(newType.TECHNOLOGY.number, 1),
+    promiseUtil.getNewsByPagePromise(newType.NEWS.number, 1),
+    promiseUtil.getNewsByPagePromise(newType.TECHNOLOGY.number, 1),
     promiseUtil.getConfigurePromise('aboutMe'),
-    promiseUtil.getProductPromise(1),
+    promiseUtil.getAllByPagePromise(Product, 1),
     promiseUtil.getContactPromise()
   ];
 
@@ -164,7 +168,8 @@ pub.productShowPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getProductPromise(page),
+      promiseUtil.getAllByPagePromise(Product, page),
+      promiseUtil.getAllCountPromise(Product),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
@@ -188,7 +193,8 @@ pub.companyNewPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getNewsPromise(newType.NEWS.number, page),
+      promiseUtil.getNewsByPagePromise(newType.NEWS.number, page),
+      promiseUtil.getAllByTypePromise(newType.NEWS.number),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
@@ -213,13 +219,15 @@ pub.dynamicPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getNewsPromise(newType.DYNAMIC.number, page),
+      promiseUtil.getNewsByPagePromise(newType.DYNAMIC.number, page),
+      promiseUtil.getAllByTypePromise(newType.DYNAMIC.number),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
     resSuccessHandler(res, {
       'dynamics': results[0],
-      'contact': results[1],
+      'count': results[1],
+      'contact': results[2],
       'page': page + 1
     })
   }, next);
@@ -235,13 +243,15 @@ pub.productNewsPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getNewsPromise(newType.PRODUCT_NEW.number, page),
+      promiseUtil.getNewsByPagePromise(newType.PRODUCT_NEW.number, page),
+      promiseUtil.getAllByTypePromise(newType.PRODUCT_NEW.number),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
     resSuccessHandler(res, {
       'productNews': results[0],
-      'contact': results[1],
+      'count': results[1],
+      'contact': results[2],
       'page': page + 1
     })
   }, next);
@@ -257,13 +267,15 @@ pub.technologyPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getNewsPromise(newType.TECHNOLOGY.number, page),
+      promiseUtil.getNewsByPagePromise(newType.TECHNOLOGY.number, page),
+      promiseUtil.getAllByTypePromise(newType.TECHNOLOGY.number),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
     resSuccessHandler(res, {
       'technology': results[0],
-      'contact': results[1],
+      'count': results[1],
+      'contact': results[2],
       'page': page + 1
     })
   }, next);
@@ -279,35 +291,15 @@ pub.downloadPage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getDownloadPromise(page),
+      promiseUtil.getAllByPagePromise(Download, page),
+      promiseUtil.getAllCountPromise(Download),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
     resSuccessHandler(res, {
       'download': results[0],
-      'contact': results[1],
-      'page': page + 1
-    })
-  }, next);
-};
-
-/**
- * 下载中心页面
- * @param req
- * @param res
- * @param next
- */
-pub.downloadPage = (req, res, next) => {
-
-  getPageWithPage(req, res, (page) => {
-    return [
-      promiseUtil.getDownloadPromise(page),
-      promiseUtil.getContactPromise()
-    ]
-  }, (results, page) => {
-    resSuccessHandler(res, {
-      'download': results[0],
-      'contact': results[1],
+      'count': results[1],
+      'contact': results[2],
       'page': page + 1
     })
   }, next);
@@ -323,13 +315,15 @@ pub.successExamplePage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getSuccessExamplePromise(page),
+      promiseUtil.getAllByPagePromise(SuccessExample, page),
+      promiseUtil.getAllCountPromise(SuccessExample),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
     resSuccessHandler(res, {
       'successExample': results[0],
-      'contact': results[1],
+      'count': results[1],
+      'contact': results[2],
       'page': page + 1
     })
   }, next);
@@ -345,13 +339,15 @@ pub.certificatePage = (req, res, next) => {
 
   getPageWithPage(req, res, (page) => {
     return [
-      promiseUtil.getCertificatePromise(page),
+      promiseUtil.getAllByPagePromise(Certificate, page),
+      promiseUtil.getAllCountPromise(Certificate),
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
     resSuccessHandler(res, {
       'certificate': results[0],
-      'contact': results[1],
+      'count': results[1],
+      'contact': results[2],
       'page': page + 1
     })
   }, next);
@@ -393,7 +389,8 @@ pub.productBySeriesPage = (req, res, next) => {
 
   argOps.createArgAndCheck(null, arg, null, (arg) => {
     let promiseList = [
-      promiseUtil.getProductBySeriesPromise(arg.params.series, arg.params.page),
+      promiseUtil.getProductBySeriesByPagePromise(arg.params.series, arg.params.page),
+      promiseUtil.getAllBySeriesCountPromise(arg.params.series),
       promiseUtil.getContactPromise()
     ];
 

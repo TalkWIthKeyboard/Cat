@@ -53,12 +53,26 @@ ProductSchema.statics = {
       .exec(cb)
   },
 
+  findAllBySeriesCount: function (series, cb) {
+    return this
+      .find({series: series})
+      .count()
+      .exec(cb)
+  },
+
   findAllByPage: function (nowPage, cb) {
     return this
       .find({})
       .skip((nowPage - 1) * config.pageSize)
       .limit(config.pageSize)
       .sort('meta.createAt')
+      .exec(cb)
+  },
+
+  findAllCount: function (cb) {
+    return this
+      .find({})
+      .count()
       .exec(cb)
   },
 
