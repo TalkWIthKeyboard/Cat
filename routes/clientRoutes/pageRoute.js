@@ -8,6 +8,7 @@ let pub = {},
   resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler,
   newType = require('./../../conf/basicConf').NEW_TYPE,
   errorInfo = require('./../../conf/basicConf').ERROR_INFO,
+  argOps = require('./../../util/argCheckUtil'),
   Promise = require('promise');
 
 const frontEndConf = require('../../conf/frontEndConf')
@@ -373,6 +374,39 @@ pub.contactPage = (req, res, next) => {
       'contact': results[0]
     })
   }, next);
+};
+
+/**
+ * 分类型分页获取产品
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.productBySeriesPage = (req, res, next) => {
+
+  let arg = {};
+  arg.params = {};
+  arg.params.page = req.params.page || false;
+  arg.params.series = req.params.series || false;
+
+  argOps.createArgAndCheck(null, arg, null, (arg) => {
+    let promiseList = [
+      promiseUtil.getProductBySeriesPromise(arg.params.series, arg.params.page),
+      promiseUtil.getContactPromise()
+    ];
+
+    Promise.all(promiseList).then((results) => {
+      resSuccessHandler(res, {
+        'products': results[0],
+        'contact': results[1],
+        'page': arg.params.page + 1
+      })
+    }).catch((err) => {
+      next(err)
+    })
+  }, () => {
+    resErrorHandler(res, errorInfo.REQUEST_ERR)
+  });
 };
 
 module.exports = pub;

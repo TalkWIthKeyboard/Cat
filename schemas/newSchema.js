@@ -37,7 +37,7 @@ NewSchema.statics = {
   findAllByPageAndType: function (type, nowPage, cb) {
     return this
       .find({type: type})
-      .skip(nowPage - 1)
+      .skip((nowPage - 1) * config.pageSize)
       .limit(config.pageSize)
       .sort('meta.createAt')
       .exec(cb)

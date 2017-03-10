@@ -20,6 +20,7 @@ router.get('/aboutMe/businessCulture', pageRouter.businessCulturePage);
 router.get('/aboutMe/businessJoin', pageRouter.businessJoinPage);
 
 router.get('/productShow/page/:page', pageRouter.productShowPage);
+router.get('/productShow/series/:series/page/:page', pageRouter.productBySeriesPage);
 
 router.get('/news/companyNew/page/:page', pageRouter.companyNewPage);
 router.get('/news/dynamic/page/:page', pageRouter.dynamicPage);
@@ -32,7 +33,6 @@ router.get('/success/page/:page', pageRouter.successExamplePage);
 router.get('/certificate/page/:page', pageRouter.certificatePage);
 
 router.get('/contact', pageRouter.contactPage);
-
 
 
 
