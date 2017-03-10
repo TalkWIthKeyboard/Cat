@@ -13,19 +13,6 @@ let pub = {},
   SuccessExample = require('./../models/SuccessExampleModel');
 
 /**
- * 获取某种新闻的第几页
- * @param type
- * @param page
- */
-pub.getNewsPromise = (type, page) => {
-  return new Promise((resolve, reject) => {
-    New.findAllByPageAndType(type, page, (err, news) => {
-      err ? reject(err) : resolve(news);
-    })
-  });
-};
-
-/**
  * 获取关于我们
  * @returns {Promise}
  */
@@ -35,19 +22,6 @@ pub.getConfigurePromise = (key) => {
       err ? reject(err) : resolve(obj);
     })
   });
-};
-
-/**
- * 获取产品的第几页
- * @param page
- * @returns {Promise}
- */
-pub.getProductPromise = (page) => {
-  return new Promise((resolve, reject) => {
-    Product.findAllByPage(page, (err, product) => {
-      err ? reject(err) : resolve(product);
-    })
-  })
 };
 
 /**
@@ -62,51 +36,85 @@ pub.getContactPromise = () => {
   })
 };
 
-/**
- * 获取下载文件的第几页
- */
-pub.getDownloadPromise = (page) => {
-  return new Promise((resolve, reject) => {
-    Download.findAllByPage(page, (err, download) => {
-      err ? reject(err) : resolve(download);
-    })
-  })
-};
+
+
+/*分页查找*/
 
 /**
- * 获取成功案例的第几页
+ * 通用的分页查找
+ * @param module
  * @param page
  */
-pub.getSuccessExamplePromise = (page) => {
+pub.getAllByPagePromise = (module, page) => {
   return new Promise((resolve, reject) => {
-    SuccessExample.findAllByPage(page, (err, se) => {
-      err ? reject(err) : resolve(se);
+    module.findAllByPage(page, (err, data) => {
+      err ? reject(err) : resolve(data)
     })
   })
 };
-
-/**
- * 获取资质证书的第几页
- * @param page
- */
-pub.getCertificatePromise = (page) => {
-  return new Promise((resolve, reject) => {
-    Certificate.findAllByPage(page, (err, certificate) => {
-      err ? reject(err) : resolve(certificate);
-    })
-  })
-};
-
 
 /**
  * 分种类获取产品的第几页
  * @param series
  * @param page
  */
-pub.getProductBySeriesPromise = (series, page) => {
+pub.getProductBySeriesByPagePromise = (series, page) => {
   return new Promise((resolve, reject) => {
     Product.findAllBySeriesAndPage(page, series, (err, products) => {
       err ? reject(err) : resolve(products)
+    })
+  })
+};
+
+/**
+ * 获取某种新闻的第几页
+ * @param type
+ * @param page
+ */
+pub.getNewsByPagePromise = (type, page) => {
+  return new Promise((resolve, reject) => {
+    New.findAllByPageAndType(type, page, (err, news) => {
+      err ? reject(err) : resolve(news);
+    })
+  });
+};
+
+
+
+/*查找数据总数*/
+
+/**
+ * 通用的查找数据总数
+ * @param module
+ */
+pub.getAllCountPromise = (module) => {
+  return new Promise((resolve, reject) => {
+    module.findAllCount((err, count) => {
+      err ? reject(err) : resolve(count)
+    })
+  })
+};
+
+/**
+ * 分类型查找产品数据总数
+ * @param series
+ */
+pub.getAllBySeriesCountPromise = (series) => {
+  return new Promise((resolve, reject) => {
+    Product.findAllBySeriesCount(series, (err, count) => {
+      err ? reject(err) : resolve(count)
+    })
+  })
+};
+
+/**
+ * 分类型查找新闻数据总数
+ * @param type
+ */
+pub.getAllByTypePromise = (type) => {
+  return new Promise((resolve, reject) => {
+    New.findAllCount(type, (err, count) => {
+      err ? reject(err) : resolve(count)
     })
   })
 };

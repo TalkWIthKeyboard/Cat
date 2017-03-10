@@ -42,6 +42,13 @@ SuccessExampleSchema.statics = {
       .exec(cb)
   },
 
+  findAllCount: function (cb) {
+    return this
+      .find({})
+      .count()
+      .exec(cb)
+  },
+
   checkIsExist: function (schoolName, cb) {
     return this
       .findOne({schoolName: schoolName})

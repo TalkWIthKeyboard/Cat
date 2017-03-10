@@ -43,6 +43,13 @@ NewSchema.statics = {
       .exec(cb)
   },
 
+  findAllCount: function (type, cb) {
+    return this
+      .find({type: type})
+      .count()
+      .exec(cb)
+  },
+
   findById: function (id, cb) {
     return this
       .findOne({_id: id})

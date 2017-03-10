@@ -43,6 +43,13 @@ ConfigureSchema.statics = {
       .exec(cb)
   },
 
+  findAllCount: function (cb) {
+    return this
+      .find({})
+      .count()
+      .exec(cb)
+  },
+
   checkIsExist: function (key, cb) {
     return this
       .findOne({key: key})
