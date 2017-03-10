@@ -1,17 +1,24 @@
+const baseUrl = '/client'
+
 exports.aboutMe = {
   title: '关于我们',
   info:  [
     {
       title: '公司简介',
-      url: './aboutMe'
+      url: baseUrl + '/aboutMe'
     },
     {
       title: '企业文化',
-      url: './aboutMe/businessCulture'
+      url: baseUrl + '/aboutMe/businessCulture'
     },
     {
       title: '招商加盟',
-      url: './aboutMe/businessJoin'
+      url: baseUrl + '/aboutMe/businessJoin'
     }
   ]
+}
+
+exports.contact = {
+  title: '联系我们',
+  info: []
 }

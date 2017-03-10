@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  include topSide
+  .x8.x2-move(style='float: none;')
+    .line
+      include contactSide
+      .x9
+        .padding-big-left
+          .border
+            .line.padding-big-top.padding-big-left.padding-big-right
+              ul.float-right.bread
+                li
+                  a.icon-home(href='/client/index') 首页
+                li
+                  a(href='/client/contact') 联系我们
+                li
+                  a(href='#') 联系方式
+              h1 联系方式
+            hr
+            .line.padding-big
+              dl.padding-big
+                dt 联系人
+                dd
+                  each person in contact.peoplePhone
+                    span= `${person.name}: ${person.phone}`
+                dt 联系电话
+                dd
+                  each phone in contact.telephone
+                    span= phone
+                dt 传真
+                dd
+                  each faxInfo in contact.fax
+                    span= faxInfo
+                dt Email
+                dd
+                  each emailInfo in contact.email
+                    span= emailInfo
+                dt 地址
+                dd= contact.address

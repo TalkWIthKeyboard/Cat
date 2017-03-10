@@ -11,12 +11,12 @@ block content
             .line.padding-big-top.padding-big-left.padding-big-right
               ul.float-right.bread
                 li
-                  a.icon-home(href='./index') 首页
+                  a.icon-home(href='/client/index') 首页
                 li
-                  a(href='./aboutMe') 关于
+                  a(href='/client/aboutMe') 关于
                 li
-                  a(href='./aboutMe') 公司简介
-              h1 公司简介
+                  a(href='#')= aboutSection
+              h1= aboutSection
             hr
             .line.padding-big
-              p= about.value
+              p= aboutInfo.value

@@ -23,7 +23,8 @@ const frontEndConf = require('../../conf/frontEndConf')
  */
 let getPageWithPage = (req, res, makeList, scb, next) => {
 
-  let page = req.params.page || false;
+  // let page = req.params.page || false;
+  let page = req.params.page || 1
 
   if (page) {
     let promiseList = makeList(page);
@@ -98,7 +99,8 @@ pub.aboutMePage = (req, res, next) => {
     res.render('aboutMe', {
       layout: false,
       conf: frontEndConf.aboutMe,
-      'about': results[0],
+      aboutSection: '企业简介',
+      'aboutInfo': results[0],
       'contact': results[1]
     })
   }, next);
@@ -118,10 +120,11 @@ pub.businessCulturePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    res.render('aboutMeCulture', {
+    res.render('aboutMe', {
       layout: false,
       conf: frontEndConf.aboutMe,
-      'businessCulture': results[0],
+      aboutSection: '企业文化',
+      'aboutInfo': results[0],
       'contact': results[1]
     })
   }, next);
@@ -141,8 +144,11 @@ pub.businessJoinPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'businessJoin': results[0],
+    res.render('aboutMe', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
+      aboutSection: '招商加盟',
+      'aboutInfo': results[0],
       'contact': results[1]
     })
   }, next);
@@ -162,10 +168,12 @@ pub.productShowPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'products': results[0],
-      'contact': results[1],
-      'page': page + 1
+    res.render('productsPage', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
+      products: results[0],
+      contact: results[1],
+      page: page + 1
     })
   }, next);
 };
@@ -359,8 +367,10 @@ pub.contactPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'contact': results[0],
+    res.render('contact', {
+      layout: false,
+      conf: frontEndConf.contact,
+      'contact': results[0]
     })
   }, next);
 };
