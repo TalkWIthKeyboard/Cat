@@ -119,4 +119,12 @@ pub.getAllByTypePromise = (type) => {
   })
 };
 
+/*按照ID查找*/
+pub.getDataByIdPromise = (module, id) => {
+  return new Promise((resolve, reject) => {
+    module.findById(id, (err, data) => {
+      err ? reject(err) : resolve(data)
+    })
+  })
+};
 module.exports = pub;
