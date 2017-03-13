@@ -2,7 +2,8 @@
  * Created by CoderSong on 17/2/28.
  */
 
-exports.pageSize = 12;
+exports.pageSize = 10;
+exports.productPageSize = 12;
 
 exports.NEW_TYPE = {
 
