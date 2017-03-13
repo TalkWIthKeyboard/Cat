@@ -13,19 +13,13 @@ block content
                 li
                   a.icon-home(href='/client/index') 首页
                 li
-                  a(href='/client/productShow/page/1') 产品展示
-                if series
-                  li
-                    a(href=`/client/productShow/series/${series}/page/1`)= series
-              h1 产品展示
+                  a(href='/client/certificate/page/1') 资质证书
+              h1 资质证书
             hr
             .line
-              each product in products
+              each item in certificate
                 .xl3.padding-small
                   .padding.bg-yellow-light
                     img.margin-big-bottom(src='/images/product.jpg' style='width: 100%;')
-                    a(href='#')= product.name
-                    br
-                    br
-                    span.tag.bg-dot= product.series
+                    a(href='#')= item.name
             include pager

@@ -1,5 +1,10 @@
 const baseUrl = '/client'
 
+exports.itemsPerPage = {
+  product: 12,
+  other: 10
+}
+
 exports.aboutMe = {
   title: '关于我们',
   info:  [
@@ -73,4 +78,14 @@ exports.news = {
       url: baseUrl + '/news/productNew/page/1'
     }
   ]
+}
+
+exports.certificate = {
+  title: '资质证书',
+  info: []
+}
+
+exports.success = {
+  title: '成功案例',
+  info: []
 }

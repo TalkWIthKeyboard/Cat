@@ -1,9 +1,9 @@
 .line.margin-big.text-center
   ul.pagination.pagination-group
     li
-      a(href='#') 首页
-    each i in [-2, -1, 0, 1, 2]
+      a(href=`${baseUrl + 1}`) 首页
+    each i in [-2, -1, 0, 1, 2].filter((val) => (page + val > 0 && page + val <= count))
       li
-        a(href='#')= page + i
+        a(href=`${baseUrl + (page + i)}`)= page + i
     li
-      a(href='#') 末页
+      a(href=`${baseUrl + count}`) 末页
