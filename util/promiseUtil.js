@@ -6,11 +6,8 @@ let pub = {},
   Promise = require('promise'),
   New = require('./../models/NewModel'),
   Product = require('./../models/ProductModel'),
-  Certificate = require('./../models/CertificateModel'),
-  Download = require('./../models/DownloadModel'),
   Configure = require('./../models/ConfigureModel'),
-  ContactInformation = require('./../models/ContactInformationModel'),
-  SuccessExample = require('./../models/SuccessExampleModel');
+  ContactInformation = require('./../models/ContactInformationModel');
 
 /**
  * 获取关于我们
@@ -120,6 +117,12 @@ pub.getAllByTypePromise = (type) => {
 };
 
 /*按照ID查找*/
+
+/**
+ * 按照id查找信息
+ * @param module
+ * @param id
+ */
 pub.getDataByIdPromise = (module, id) => {
   return new Promise((resolve, reject) => {
     module.findById(id, (err, data) => {

@@ -3,7 +3,7 @@
  */
 
 exports.pageSize = 10;
-exports.productPageSize = 12;
+exports.imgPageSize = 12;
 
 exports.NEW_TYPE = {
 
