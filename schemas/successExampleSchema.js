@@ -36,8 +36,8 @@ SuccessExampleSchema.statics = {
   findAllByPage: function (nowPage, cb) {
     return this
       .find({})
-      .skip((nowPage - 1) * config.pageSize)
-      .limit(config.pageSize)
+      .skip((nowPage - 1) * config.imgPageSize)
+      .limit(config.imgPageSize)
       .sort('meta.createAt')
       .exec(cb)
   },

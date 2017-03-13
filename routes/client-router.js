@@ -6,6 +6,7 @@
 
 let router = require('express').Router(),
   pageRouter = require('./clientRoutes/pageRoute'),
+  dataRouter = require('./clientRoutes/dataRoute'),
   newRouter = require('./serverRoutes/newRoute');
 
 // 联系方式相关路由
@@ -34,6 +35,11 @@ router.get('/certificate/page/:page', pageRouter.certificatePage);
 
 router.get('/contact', pageRouter.contactPage);
 
+
+// 信息页面路由
+router.get('/productShow/id/:id', dataRouter.getProductById);
+router.get('/news/id/:id', dataRouter.getNewsById);
+router.get('/download/id/:id', dataRouter.getDownloadById);
 
 
 module.exports = router;
