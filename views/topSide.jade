@@ -1,0 +1,11 @@
+.keypoint.text-center
+  h1= conf.title
+  .navbar
+    ul.nav.nav-inline.nav-menu.float-left(style='width: 100%')
+      each item, index in conf.info
+        if index
+          li.border-left
+            a(href=item.url)= item.title
+        else
+          li
+            a(href=item.url)= item.title

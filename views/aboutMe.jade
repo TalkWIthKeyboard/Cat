@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  include topSide
+  .x8.x2-move(style='float: none;')
+    .line
+      include contactSide
+      .x9
+        .padding-big-left
+          .border
+            .line.padding-big-top.padding-big-left.padding-big-right
+              ul.float-right.bread
+                li
+                  a.icon-home(href='/client/index') 首页
+                li
+                  a(href='/client/aboutMe') 关于
+                li
+                  a(href='#')= aboutSection
+              h1= aboutSection
+            hr
+            .line.padding-big
+              p= aboutInfo.value

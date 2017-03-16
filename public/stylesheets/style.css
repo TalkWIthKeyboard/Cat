@@ -1,8 +1,14 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html {
+    height: 100%;
 }
 
-a {
-  color: #00B7FF;
+body {
+    min-width: 1200px;
+    min-height: 100%;
+    height: auto;
+    width: 100%;
+}
+
+.carousel img {
+    margin: 0 auto;
 }

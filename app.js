@@ -35,7 +35,7 @@ app.use('/server/', serverRouter);
 app.use('/client/', clientRouter);
 
 // 错误处理中间件
-const errorMD = require('./services/middlewareServices/errorMDServices');
-app.use(errorMD.databaseErrorMiddleWare());
+// const errorMD = require('./services/middlewareServices/errorMDServices');
+// app.use(errorMD.databaseErrorMiddleWare());
 
 module.exports = app;

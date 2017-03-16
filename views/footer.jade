@@ -1,0 +1,36 @@
+div.container-layout.bg-sub.margin-big-top(style='color: white; margin-bottom: 0;')
+  .border-top.padding-top
+    .text-center.margin-big-bottom
+      ul.nav.nav-inline
+        li
+          a(href='/client/index' style='color: white;') 网站首页
+        li
+          a(href='#' style='color: white;') 新闻资讯
+        li
+          a(href='#' style='color: white;') 产品中心
+        li
+          a(href='#' style='color: white;') 技术反馈
+        li
+          a(href='/client/contact' style='color: white;') 联系方式
+    .text-center
+        p.margin-small-bottom
+          strong 联系人：
+          each person in contact.peoplePhone
+            span= `${person.name} ${person.phone}`
+        p.margin-small-bottom
+          strong 联系电话：
+          each phone in contact.telephone
+            span= phone
+        p.margin-small-bottom
+          strong 传真：
+          each faxInfo in contact.fax
+            span= faxInfo
+        p.margin-small-bottom
+          strong Email：
+          each emailInfo in contact.email
+            span= emailInfo
+        p.margin-small-bottom
+          strong 地址：
+          span= contact.address
+    .text-center
+      p Copyright©2017 绵阳市涪城区力田磁电科技有限公司（力田磁电技术应用研究所） 蜀ICP备11022774 号

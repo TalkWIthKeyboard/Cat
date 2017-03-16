@@ -15,6 +15,8 @@ let pub = {},
   Download = require('./../../models/DownloadModel'),
   SuccessExample = require('./../../models/SuccessExampleModel');
 
+const frontEndConf = require('../../conf/frontEndConf')
+
 
 /**
  * req携带page参数的路由访问模板
@@ -73,7 +75,8 @@ pub.mainPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
+    res.render('index', {
+      layout: false,
       'news': results[0],
       'technology': results[1],
       'about': results[2],
@@ -97,8 +100,11 @@ pub.aboutMePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'about': results[0],
+    res.render('aboutMe', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
+      aboutSection: '企业简介',
+      'aboutInfo': results[0],
       'contact': results[1]
     })
   }, next);
@@ -118,8 +124,11 @@ pub.businessCulturePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'businessCulture': results[0],
+    res.render('aboutMe', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
+      aboutSection: '企业文化',
+      'aboutInfo': results[0],
       'contact': results[1]
     })
   }, next);
@@ -139,8 +148,11 @@ pub.businessJoinPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'businessJoin': results[0],
+    res.render('aboutMe', {
+      layout: false,
+      conf: frontEndConf.aboutMe,
+      aboutSection: '招商加盟',
+      'aboutInfo': results[0],
       'contact': results[1]
     })
   }, next);
@@ -161,11 +173,12 @@ pub.productShowPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'products': results[0],
-      'count': results[1],
-      'contact': results[2],
-      'page': page + 1
+    res.render('productsPage', {
+      layout: false,
+      conf: frontEndConf.product,
+      products: results[0],
+      contact: results[1],
+      page: parseInt(page)
     })
   }, next);
 };
@@ -185,11 +198,13 @@ pub.companyNewPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
+    res.render('newsPage', {
+      layout: false,
+      conf: frontEndConf.news,
       'companyNews': results[0],
-      'count': results[1],
-      'contact': results[2],
-      'page': page + 1
+      newsType: '企业新闻',
+      'contact': results[1],
+      'page': parseInt(page)
     })
   }, next);
 };
@@ -351,8 +366,10 @@ pub.contactPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    resSuccessHandler(res, {
-      'contact': results[0],
+    res.render('contact', {
+      layout: false,
+      conf: frontEndConf.contact,
+      'contact': results[0]
     })
   }, next);
 };
@@ -378,11 +395,13 @@ pub.productBySeriesPage = (req, res, next) => {
     ];
 
     Promise.all(promiseList).then((results) => {
-      resSuccessHandler(res, {
+      res.render('productsPage', {
+        layout: false,
+        conf: frontEndConf.product,
         'products': results[0],
-        'count': results[1],
-        'contact': results[2],
-        'page': arg.params.page + 1
+        'contact': results[1],
+        series: arg.params.series,
+        page: parseInt(arg.params.page)
       })
     }).catch((err) => {
       next(err)

@@ -1,0 +1,21 @@
+.x3
+  .line
+    dl.bg-blue-light.padding-big
+      dt 联系人
+      dd
+        each person in contact.peoplePhone
+          span= `${person.name}: ${person.phone}`
+      dt 联系电话
+      dd
+        each phone in contact.telephone
+          span= phone
+      dt 传真
+      dd
+        each faxInfo in contact.fax
+          span= faxInfo
+      dt Email
+      dd
+        each emailInfo in contact.email
+          span= emailInfo
+      dt 地址
+      dd= contact.address
