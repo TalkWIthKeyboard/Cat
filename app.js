@@ -42,7 +42,10 @@ app.use('/client/', clientRouter);
 // app.use(errorMD.databaseErrorMiddleWare());
 
 
-app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public')), function (req, res, next) {
+/**
+ * ueditor 上传服务
+ */
+app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function (req, res, next) {
   // ueditor 客户端发起上传图片请求
   if (req.query.action === 'uploadimage') {
     let foo = req.ueditor,
@@ -64,6 +67,6 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public')), function (req, r
     res.setHeader('Content-Type', 'application/json');
     res.redirect('/ueditor/php/config.json');
   }
-});
+}));
 
 module.exports = app;

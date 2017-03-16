@@ -35,16 +35,9 @@ router.get('/certificate/page/:page', pageRouter.certificatePage);
 
 router.get('/contact', pageRouter.contactPage);
 
-
 // 信息页面路由
 router.get('/productShow/id/:id', dataRouter.getProductById);
 router.get('/news/id/:id', dataRouter.getNewsById);
 router.get('/download/id/:id', dataRouter.getDownloadById);
-
-
-let manageRouter = require('./manageRoutes/manageRoute');
-
-router.get('/test', manageRouter.managerIndexPage);
-
 
 module.exports = router;
