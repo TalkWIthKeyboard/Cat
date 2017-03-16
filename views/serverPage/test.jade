@@ -1,0 +1,13 @@
+//
+   Created by CoderSong on 17/3/16.
+
+extends layout
+
+block content
+    script(src="/lib/ueditor/ueditor.config.js",charset="utf-8")
+    script(src="/lib/ueditor/ueditor.all.min.js",charset="utf-8")
+    script(src="/lib/ueditor/lang/zh-cn/zh-cn.js",charset="utf-8")
+    script#editor(type="text/plain",style="width:1024px;height:500px;")
+
+    script.
+        var ue = UE.getEditor('editor');

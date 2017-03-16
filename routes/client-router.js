@@ -42,4 +42,9 @@ router.get('/news/id/:id', dataRouter.getNewsById);
 router.get('/download/id/:id', dataRouter.getDownloadById);
 
 
+let manageRouter = require('./manageRoutes/manageRoute');
+
+router.get('/test', manageRouter.managerIndexPage);
+
+
 module.exports = router;
