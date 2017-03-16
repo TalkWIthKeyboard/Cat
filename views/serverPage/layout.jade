@@ -7,6 +7,7 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title 力田磁电科技
+
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     link(rel='stylesheet', href='/assets/materialize/css/materialize.min.css', media='screen,projection')
     // Bootstrap Styles
@@ -20,6 +21,23 @@ html
     // Google Fonts
     link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='/assets/js/Lightweight-Chart/cssCharts.css')
+
+    // jQuery Js
+    script(src='/assets/js/jquery-1.10.2.js')
+    // Bootstrap Js
+    script(src='/assets/js/bootstrap.min.js')
+    script(src='/assets/materialize/js/materialize.min.js')
+    // Metis Menu Js
+    script(src='/assets/js/jquery.metisMenu.js')
+    // Morris Chart Js
+    script(src='/assets/js/morris/raphael-2.1.0.min.js')
+    script(src='/assets/js/morris/morris.js')
+    script(src='/assets/js/easypiechart.js')
+    script(src='/assets/js/easypiechart-data.js')
+    script(src='/assets/js/Lightweight-Chart/jquery.chart.js')
+    // Custom Js
+    script(src='/assets/js/custom-scripts.js')
+
   body
     #wrapper
       nav.navbar.navbar-default.top-navbar(role='navigation')
@@ -39,205 +57,25 @@ html
         .sidebar-collapse
           ul#main-menu.nav
             li
-              a.waves-effect.waves-dark(href='form.html') 关于我们
+              a.waves-effect.waves-dark(href='form.html') 联系方式
+            li
+              a.waves-effect.waves-dark(href='form.html') 新闻
+            li
+              a.waves-effect.waves-dark(href='form.html') 技术
+            li
+              a.waves-effect.waves-dark(href='form.html') 产品
+            li
+              a.waves-effect.waves-dark(href='form.html') 成功案例
+            li
+              a.waves-effect.waves-dark(href='form.html') 资质证书
+            li
+              a.waves-effect.waves-dark(href='form.html') 系统配置
+            li
+              a.waves-effect.waves-dark(href='form.html') 下载文件
             li
               a.waves-effect.waves-dark(href='form.html') 关于我们
-            li
-              a.waves-effect.waves-dark(href='form.html') 关于我们
-      // /. NAV SIDE
       #page-wrapper
         .header
-          h1.page-header
-            | Dashboard
-          ol.breadcrumb
-            li
-              a(href='#') Home
-            li
-              a(href='#') Dashboard
-            li.active Data
+          h1.page-header Dashboard
         #page-inner
-          .row
-            .col-xs-12.col-sm-6.col-md-3
-              .card.horizontal.cardIcon.waves-effect.waves-dark
-                .card-image.red
-                  i.fa.fa-eye.fa-5x
-                .card-stacked
-                  .card-content
-                    h3 16,150
-                  .card-action
-                    strong  Daily Visits
-            .col-xs-12.col-sm-6.col-md-3
-              .card.horizontal.cardIcon.waves-effect.waves-dark
-                .card-image.orange
-                  i.fa.fa-shopping-cart.fa-5x
-                .card-stacked
-                  .card-content
-                    h3 25,550
-                  .card-action
-                    strong  Sales
-            .col-xs-12.col-sm-6.col-md-3
-              .card.horizontal.cardIcon.waves-effect.waves-dark
-                .card-image.blue
-                  i.fa.fa-comments.fa-5x
-                .card-stacked
-                  .card-content
-                    h3 11,225
-                  .card-action
-                    strong  Comments
-            .col-xs-12.col-sm-6.col-md-3
-              .card.horizontal.cardIcon.waves-effect.waves-dark
-                .card-image
-                  i.fa.fa-users.fa-5x
-                .card-stacked
-                  .card-content
-                    h3 72,525
-                  .card-action
-                    strong  No. of Visits
-          // /. ROW
-          .row
-            .col-xs-12.col-sm-6.col-md-3
-              .card-panel.text-center
-                h4 Profit
-                #easypiechart-blue.easypiechart(data-percent='82')
-                  span.percent 82%
-            .col-xs-12.col-sm-6.col-md-3
-              .card-panel.text-center
-                h4 No. of Visits
-                #easypiechart-red.easypiechart(data-percent='46')
-                  span.percent 46%
-            .col-xs-12.col-sm-6.col-md-3
-              .card-panel.text-center
-                h4 Customers
-                #easypiechart-teal.easypiechart(data-percent='84')
-                  span.percent 84%
-            .col-xs-12.col-sm-6.col-md-3
-              .card-panel.text-center
-                h4 Sales
-                #easypiechart-orange.easypiechart(data-percent='55')
-                  span.percent 55%
-          // /.row
-          .row
-            .col-md-5
-              .card
-                .card-image
-                  #morris-line-chart
-                .card-action
-                  b Line Chart
-            .col-md-7
-              .card
-                .card-image
-                  #morris-bar-chart
-                .card-action
-                  b  Bar Chart Example
-          .row
-            .col-md-9.col-sm-12.col-xs-12
-              .card
-                .card-image
-                  #morris-area-chart
-                .card-action
-                  b Area Chart
-            .col-md-3.col-sm-12.col-xs-12
-              .card
-                .card-image
-                  #morris-donut-chart
-                .card-action
-                  b Donut Chart Example
-          .row
-            .col-md-12
-          // /. ROW
-          .row
-            .col-md-4.col-sm-12.col-xs-12
-              .card
-                .card-action
-                  b Tasks Panel
-                .card-image
-                  .collection
-                    a.collection-item(href='#!')
-                      | Red
-                      span.new.badge.red(data-badge-caption='red') 4
-                    a.collection-item(href='#!')
-                      | Blue
-                      span.new.badge.blue(data-badge-caption='blue') 4
-                    a.collection-item(href='#!')
-                      span.badge 1
-                      | Alan
-                    a.collection-item(href='#!')
-                      span.new.badge 4
-                      | Alan
-                    a.collection-item(href='#!')
-                      | Alan
-                      span.new.badge.blue(data-badge-caption='blue') 4
-                    a.collection-item(href='#!')
-                      span.badge 14
-                      | Alan
-                    a.collection-item(href='#!')
-                      | Custom Badge Captions
-                      span.new.badge(data-badge-caption='custom caption') 4
-                    a.collection-item(href='#!')
-                      | Custom Badge Captions
-                      span.badge(data-badge-caption='custom caption') 4
-            .col-md-8.col-sm-12.col-xs-12
-              .card
-                .card-action
-                  b User List
-                .card-image
-                  ul.collection
-                    li.collection-item.avatar
-                      i.material-icons.circle.green insert_chart
-                      span.title Title
-                      p
-                        | First Line
-                        br
-                        |          Second Line
-                      a.secondary-content(href='#!')
-                        i.material-icons grade
-                    li.collection-item.avatar
-                      i.material-icons.circle folder
-                      span.title Title
-                      p
-                        | First Line
-                        br
-                        |          Second Line
-                      a.secondary-content(href='#!')
-                        i.material-icons grade
-                    li.collection-item.avatar
-                      i.material-icons.circle.green insert_chart
-                      span.title Title
-                      p
-                        | First Line
-                        br
-                        |          Second Line
-                      a.secondary-content(href='#!')
-                        i.material-icons grade
-                    li.collection-item.avatar
-                      i.material-icons.circle.red play_arrow
-                      span.title Title
-                      p
-                        | First Line
-                        br
-                        |          Second Line
-                      a.secondary-content(href='#!')
-                        i.material-icons grade
-          footer
-            p
-              | Copyright © 2016.Company name All rights reserved.
-              a(target='_blank', href='http://www.mycodes.net/') 网页模板
-        // /. PAGE INNER
-      // /. PAGE WRAPPER
-    // /. WRAPPER
-    // JS Scripts
-    // jQuery Js
-    script(src='/assets/js/jquery-1.10.2.js')
-    // Bootstrap Js
-    script(src='/assets/js/bootstrap.min.js')
-    script(src='/assets/materialize/js/materialize.min.js')
-    // Metis Menu Js
-    script(src='/assets/js/jquery.metisMenu.js')
-    // Morris Chart Js
-    script(src='/assets/js/morris/raphael-2.1.0.min.js')
-    script(src='/assets/js/morris/morris.js')
-    script(src='/assets/js/easypiechart.js')
-    script(src='/assets/js/easypiechart-data.js')
-    script(src='/assets/js/Lightweight-Chart/jquery.chart.js')
-    // Custom Js
-    script(src='/assets/js/custom-scripts.js')
+          block content
