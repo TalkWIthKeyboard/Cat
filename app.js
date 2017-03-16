@@ -41,7 +41,6 @@ app.use('/client/', clientRouter);
 // const errorMD = require('./services/middlewareServices/errorMDServices');
 // app.use(errorMD.databaseErrorMiddleWare());
 
-
 /**
  * ueditor 上传服务
  */
