@@ -8,7 +8,7 @@ let mongoose = require('mongoose'),
 let DownloadSchema = new mongoose.Schema({
   title: String,
   content: String,
-  uml: String,
+  url: String,
   meta: {
     createAt: {
       type: Date,

@@ -12,6 +12,7 @@ let pub = {},
   Product = require('./../../models/ProductModel'),
   Download = require('./../../models/DownloadModel');
 
+const frontEndConf = require('../../conf/frontEndConf')
 
 /**
  * 按照id获取具体数据通用API
@@ -47,9 +48,13 @@ let getDataById = (req, res, module, scb, next) => {
  */
 pub.getProductById = (req, res, next) => {
   getDataById(req, res, Product, (results) => {
-    resSuccessHandler(res, {
-      'product': results[0],
-      'contact': results[1]
+    console.log(results[0])
+    res.render('detailPage', {
+      layout: false,
+      conf: frontEndConf.product,
+      detail: results[0],
+      'contact': results[1],
+      title: results[0].name
     })
   }, next);
 };
@@ -62,9 +67,12 @@ pub.getProductById = (req, res, next) => {
  */
 pub.getNewsById = (req, res, next) => {
   getDataById(req, res, New, (results) => {
-    resSuccessHandler(res, {
-      'new': results[0],
-      'contact': results[1]
+    res.render('detailPage', {
+      layout: false,
+      conf: frontEndConf.news,
+      detail: results[0],
+      'contact': results[1],
+      title: results[0].title
     })
   }, next)
 };
@@ -77,26 +85,15 @@ pub.getNewsById = (req, res, next) => {
  */
 pub.getDownloadById = (req, res, next) => {
   getDataById(req, res, Download, (results) => {
-    resSuccessHandler(res, {
-      'download': results[0],
-      'contact': results[1]
+    res.render('detailPage', {
+      layout: false,
+      conf: frontEndConf.news,
+      detail: results[0],
+      contact: results[1],
+      title: results[0].title
     })
   }, next)
 };
 
-/**
- * 按照id获取下载信息
- * @param req
- * @param res
- * @param next
- */
-pub.getDownloadById = (req, res, next) => {
-  getDataById(req, res, Download, (results) => {
-    resSuccessHandler(res, {
-      'download': results[0],
-      'contact': results[1]
-    })
-  }, next)
-};
 
 module.exports = pub;

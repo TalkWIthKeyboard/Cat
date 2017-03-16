@@ -24,7 +24,7 @@ block content
                   .media.media-x
                     span.txt.radius.bg-sub.float-left(style='width: 100px;')= new Date(news.meta.updateAt).toLocaleDateString()
                     .media-body
-                      a
+                      a(href=`/client/news/id/${news._id}`)
                         strong= news.title
                       p= news.subtitle
                   hr

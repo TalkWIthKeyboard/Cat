@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  include topSide
+  .x8.x2-move(style='float: none;')
+    .line
+      include contactSide
+      .x9
+        .padding-big-left
+          .border
+            .line.padding-big-top.padding-big-left.padding-big-right
+              ul.float-right.bread
+                li
+                  a.icon-home(href='/client/index') 首页
+              h1= title
+            hr
+            .line
+              p.padding= detail.content

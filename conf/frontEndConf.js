@@ -89,3 +89,17 @@ exports.success = {
   title: '成功案例',
   info: []
 }
+
+exports.technology = {
+  title: '技术支持',
+  info: [
+    {
+      title: '技术支持',
+      url: '/client/technology/page/1'
+    },
+    {
+      title: '下载中心',
+      url: '/client/download/page/1'
+    }
+  ]
+}

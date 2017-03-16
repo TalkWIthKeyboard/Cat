@@ -285,11 +285,15 @@ pub.technologyPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'technology': results[0],
-      'count': results[1],
+    res.render('technologyPage', {
+      layout: false,
+      conf: frontEndConf.technology,
+      technology: results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      type: 'technology',
+      baseUrl: '/client/technology/page/'
     })
   }, next);
 };
@@ -309,11 +313,15 @@ pub.downloadPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'download': results[0],
-      'count': results[1],
+    res.render('technologyPage', {
+      layout: false,
+      conf: frontEndConf.technology,
+      technology: results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      type: 'download',
+      baseUrl: '/client/download/page/'
     })
   }, next);
 };
@@ -333,8 +341,7 @@ pub.successExamplePage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    console.log(results[0])
-    res.render('certificatePage', {
+    res.render('successPage', {
       layout: false,
       conf: frontEndConf.success,
       successExample: results[0],
@@ -361,7 +368,6 @@ pub.certificatePage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    console.log(results[0])
     res.render('certificatePage', {
       layout: false,
       conf: frontEndConf.certificate,
