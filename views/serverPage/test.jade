@@ -4,10 +4,22 @@
 extends layout
 
 block content
-    script(src="/lib/ueditor/ueditor.config.js",charset="utf-8")
-    script(src="/lib/ueditor/ueditor.all.min.js",charset="utf-8")
-    script(src="/lib/ueditor/lang/zh-cn/zh-cn.js",charset="utf-8")
+    script(src="/ueditor/ueditor.config.js",charset="utf-8")
+    script(src="/ueditor/ueditor.all.min.js",charset="utf-8")
+    script(src="/ueditor/lang/zh-cn/zh-cn.js",charset="utf-8")
     script#editor(type="text/plain",style="width:1024px;height:500px;")
+
+    button#sureBtn.button.border-sub OK
 
     script.
         var ue = UE.getEditor('editor');
+
+        setTimeout(function() {
+            ue.execCommand('drafts');
+        }, 500);
+
+        $(document).ready(function() {
+          $('#sureBtn').click(function(){
+             console.log(JSON.stringify(ue.getContent()));
+          })
+        })
