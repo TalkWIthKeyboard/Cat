@@ -75,7 +75,7 @@ pub.mainPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    res.render('index', {
+    res.render('clientPage/index', {
       layout: false,
       'news': results[0],
       'technology': results[1],
@@ -100,7 +100,7 @@ pub.aboutMePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    res.render('aboutMe', {
+    res.render('clientPage/aboutMe', {
       layout: false,
       conf: frontEndConf.aboutMe,
       aboutSection: '企业简介',
@@ -124,7 +124,7 @@ pub.businessCulturePage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    res.render('aboutMe', {
+    res.render('clientPage/aboutMe', {
       layout: false,
       conf: frontEndConf.aboutMe,
       aboutSection: '企业文化',
@@ -148,7 +148,7 @@ pub.businessJoinPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    res.render('aboutMe', {
+    res.render('clientPage/aboutMe', {
       layout: false,
       conf: frontEndConf.aboutMe,
       aboutSection: '招商加盟',
@@ -173,7 +173,7 @@ pub.productShowPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    res.render('productsPage', {
+    res.render('clientPage/productsPage', {
       layout: false,
       conf: frontEndConf.product,
       products: results[0],
@@ -198,7 +198,7 @@ pub.companyNewPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    res.render('newsPage', {
+    res.render('clientPage/newsPage', {
       layout: false,
       conf: frontEndConf.news,
       'companyNews': results[0],
@@ -366,7 +366,7 @@ pub.contactPage = (req, res, next) => {
   ];
 
   getPageWithoutParams(req, res, promiseList, (results) => {
-    res.render('contact', {
+    res.render('clientPage/contact', {
       layout: false,
       conf: frontEndConf.contact,
       'contact': results[0]
@@ -395,7 +395,7 @@ pub.productBySeriesPage = (req, res, next) => {
     ];
 
     Promise.all(promiseList).then((results) => {
-      res.render('productsPage', {
+      res.render('clientPage/productsPage', {
         layout: false,
         conf: frontEndConf.product,
         'products': results[0],
