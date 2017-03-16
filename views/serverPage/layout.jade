@@ -3,12 +3,79 @@
 
 doctype html
 html
-    head
-        title 力田磁电科技
-        meta(http-equiv="Content-Type",content="text/html;charset=utf-8")
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet', href='/stylesheets/pintuer.css')
-        script(src='/scripts/jquery.js')
-        script(src='/scripts/pintuer.js')
-    body
-        block content
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title 力田磁电科技
+
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    link(rel='stylesheet', href='/assets/materialize/css/materialize.min.css', media='screen,projection')
+    // Bootstrap Styles
+    link(href='/assets/css/bootstrap.css', rel='stylesheet')
+    // FontAwesome Styles
+    link(href='/assets/css/font-awesome.css', rel='stylesheet')
+    // Morris Chart Styles
+    link(href='/assets/js/morris/morris-0.4.3.min.css', rel='stylesheet')
+    // Custom Styles
+    link(href='/assets/css/custom-styles.css', rel='stylesheet')
+    // Google Fonts
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='/assets/js/Lightweight-Chart/cssCharts.css')
+
+    // jQuery Js
+    script(src='/assets/js/jquery-1.10.2.js')
+    // Bootstrap Js
+    script(src='/assets/js/bootstrap.min.js')
+    script(src='/assets/materialize/js/materialize.min.js')
+    // Metis Menu Js
+    script(src='/assets/js/jquery.metisMenu.js')
+    // Morris Chart Js
+    script(src='/assets/js/morris/raphael-2.1.0.min.js')
+    script(src='/assets/js/morris/morris.js')
+    script(src='/assets/js/easypiechart.js')
+    script(src='/assets/js/easypiechart-data.js')
+    script(src='/assets/js/Lightweight-Chart/jquery.chart.js')
+    // Custom Js
+    script(src='/assets/js/custom-scripts.js')
+
+  body
+    #wrapper
+      nav.navbar.navbar-default.top-navbar(role='navigation')
+        .navbar-header
+          button.navbar-toggle.waves-effect.waves-dark(type='button', data-toggle='collapse', data-target='.sidebar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand.waves-effect.waves-dark(href='index.html')
+            i.large.material-icons insert_chart
+            strong 力田后台管理
+          #sideNav(href='')
+            i.material-icons.dp48 toc
+      // /. NAV TOP
+      nav.navbar-default.navbar-side(role='navigation')
+        .sidebar-collapse
+          ul#main-menu.nav
+            li
+              a.waves-effect.waves-dark(href='form.html') 联系方式
+            li
+              a.waves-effect.waves-dark(href='form.html') 新闻
+            li
+              a.waves-effect.waves-dark(href='form.html') 技术
+            li
+              a.waves-effect.waves-dark(href='form.html') 产品
+            li
+              a.waves-effect.waves-dark(href='form.html') 成功案例
+            li
+              a.waves-effect.waves-dark(href='form.html') 资质证书
+            li
+              a.waves-effect.waves-dark(href='form.html') 系统配置
+            li
+              a.waves-effect.waves-dark(href='form.html') 下载文件
+            li
+              a.waves-effect.waves-dark(href='form.html') 关于我们
+      #page-wrapper
+        .header
+          h1.page-header Dashboard
+        #page-inner
+          block content
