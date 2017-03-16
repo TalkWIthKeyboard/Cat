@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  include topSide
+  .x8.x2-move(style='float: none;')
+    .line
+      include contactSide
+      .x9
+        .padding-big-left
+          .border
+            .line.padding-big-top.padding-big-left.padding-big-right
+              ul.float-right.bread
+                li
+                  a.icon-home(href='/client/index') 首页
+                li
+                  a(href='/client/technology/page/1') 技术支持
+            hr
+            .line
+              .padding-big
+                each item in technology
+                  .media.media-x
+                    span.txt.radius.bg-sub.float-left(style='width: 100px;')= new Date(item.meta.updateAt).toLocaleDateString()
+                    .media-body
+                      if type === 'technology'
+                        a(href=`/client/news/id/${item._id}`)
+                          strong= item.title
+                      else
+                        a(href=`/client/download/id/${item._id}`)
+                          strong= item.title
+                      p= item.subtitle
+                  hr
+            include pager

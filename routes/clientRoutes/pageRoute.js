@@ -4,7 +4,6 @@
 
 let pub = {},
   promiseUtil = require('./../../util/promiseUtil'),
-  resSuccessHandler = require('./../../util/resReturnUtil').resSuccessHandler,
   resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler,
   newType = require('./../../conf/basicConf').NEW_TYPE,
   errorInfo = require('./../../conf/basicConf').ERROR_INFO,
@@ -15,7 +14,7 @@ let pub = {},
   Download = require('./../../models/DownloadModel'),
   SuccessExample = require('./../../models/SuccessExampleModel');
 
-const frontEndConf = require('../../conf/frontEndConf')
+const frontEndConf = require('../../conf/frontEndConf');
 
 
 /**
@@ -177,8 +176,10 @@ pub.productShowPage = (req, res, next) => {
       layout: false,
       conf: frontEndConf.product,
       products: results[0],
-      contact: results[1],
-      page: parseInt(page)
+      count: Math.ceil(results[1] / frontEndConf.itemsPerPage.product),
+      contact: results[2],
+      page: parseInt(page),
+      baseUrl: `/client/productShow/page/`
     })
   }, next);
 };
@@ -201,10 +202,12 @@ pub.companyNewPage = (req, res, next) => {
     res.render('clientPage/newsPage', {
       layout: false,
       conf: frontEndConf.news,
-      'companyNews': results[0],
       newsType: '企业新闻',
-      'contact': results[1],
-      'page': parseInt(page)
+      'companyNews': results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
+      'contact': results[2],
+      'page': parseInt(page),
+      baseUrl: '/client/news/companyNew/page/'
     })
   }, next);
 };
@@ -224,11 +227,15 @@ pub.dynamicPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
+    res.render('clientPage/newsPage', {
+      layout: false,
+      conf: frontEndConf.news,
+      newsType: '行业动态',
       'dynamics': results[0],
-      'count': results[1],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      baseUrl: '/client/news/dynamic/page/'
     })
   }, next);
 };
@@ -248,11 +255,15 @@ pub.productNewsPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
+    res.render('clientPage/newsPage', {
+      layout: false,
+      conf: frontEndConf.news,
+      newsType: '行业动态',
       'productNews': results[0],
-      'count': results[1],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      baseUrl: '/client/news/productNew/page/'
     })
   }, next);
 };
@@ -272,11 +283,15 @@ pub.technologyPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'technology': results[0],
-      'count': results[1],
+    res.render('clientPage/technologyPage', {
+      layout: false,
+      conf: frontEndConf.technology,
+      technology: results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      type: 'technology',
+      baseUrl: '/client/technology/page/'
     })
   }, next);
 };
@@ -296,11 +311,15 @@ pub.downloadPage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'download': results[0],
-      'count': results[1],
+    res.render('clientPage/technologyPage', {
+      layout: false,
+      conf: frontEndConf.technology,
+      technology: results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      type: 'download',
+      baseUrl: '/client/download/page/'
     })
   }, next);
 };
@@ -320,11 +339,14 @@ pub.successExamplePage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'successExample': results[0],
-      'count': results[1],
+    res.render('clientPage/successPage', {
+      layout: false,
+      conf: frontEndConf.success,
+      successExample: results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      baseUrl: '/client/success/page/'
     })
   }, next);
 };
@@ -344,11 +366,14 @@ pub.certificatePage = (req, res, next) => {
       promiseUtil.getContactPromise()
     ]
   }, (results, page) => {
-    resSuccessHandler(res, {
-      'certificate': results[0],
-      'count': results[1],
+    res.render('clientPage/certificatePage', {
+      layout: false,
+      conf: frontEndConf.certificate,
+      certificate: results[0],
+      'count': Math.ceil(results[1] / frontEndConf.itemsPerPage.other),
       'contact': results[2],
-      'page': page + 1
+      'page': parseInt(page),
+      baseUrl: '/client/certificate/page/'
     })
   }, next);
 };
@@ -398,10 +423,12 @@ pub.productBySeriesPage = (req, res, next) => {
       res.render('clientPage/productsPage', {
         layout: false,
         conf: frontEndConf.product,
-        'products': results[0],
-        'contact': results[1],
+        products: results[0],
+        count: Math.ceil(results[1] / frontEndConf.itemsPerPage.product),
+        contact: results[2],
         series: arg.params.series,
-        page: parseInt(arg.params.page)
+        page: parseInt(arg.params.page),
+        baseUrl: `/client/productShow/series/${arg.params.series}/page/`
       })
     }).catch((err) => {
       next(err)

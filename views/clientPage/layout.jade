@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= title
+    title 力田磁电科技
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/pintuer.css')
     script(src='/scripts/jquery.js')
@@ -10,3 +10,27 @@ html
     include nav
     block content
     include footer
+    -
+      let script = `
+        $(
+          function () {
+            var type = ['产品展示', '新闻中心', '技术支持', '成功案例', '资质证书', '关于我们', '联系我们'],
+            lis = $('ul.nav li'),
+            isMain = true
+
+            for (var i = 1; i < 8; i++) {
+              if (type[i - 1] === `${conf.title}`) {
+                lis[i].removeClass('bg-sub')
+                lis[i].addClass('bg-dot')
+                isMain = false
+              }
+            }
+
+            if (isMain) {
+              lis[0].removeClass('bg-sub')
+              lis[0].addClass('bg-dot')
+            }
+          }
+        )
+      `
+    script= script

@@ -13,18 +13,19 @@ block content
                 li
                   a.icon-home(href='/client/index') 首页
                 li
-                  a(href='/client/contact') 新闻中心
+                  a(href='/client/news/companyNew/page/1') 新闻中心
                 li
                   a(href=`/client/news/${newsType}/page/1`)= newsType
               h1 新闻中心
             hr
             .line
-              //each product in products
-              //  .xl3.padding-small
-              //    .padding-big.bg-yellow-light
-              //      img.margin-big-bottom(src='/images/product.jpg' style='width: 100%;')
-              //      a(href='#')= product.name
-              //      br
-              //      br
-              //      span.tag.bg-dot= product.series
+              .padding-big
+                each news in (companyNews || dynamics || productNews)
+                  .media.media-x
+                    span.txt.radius.bg-sub.float-left(style='width: 100px;')= new Date(news.meta.updateAt).toLocaleDateString()
+                    .media-body
+                      a(href=`/client/news/id/${news._id}`)
+                        strong= news.title
+                      p= news.subtitle
+                  hr
             include pager
