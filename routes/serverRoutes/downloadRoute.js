@@ -53,20 +53,4 @@ pub.getDownload = (req, res, next) => {
 };
 
 
-/**
- * 分页获取下载资源
- * @param req
- * @param res
- * @param next
- */
-pub.getDownloadByPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, downloads) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'downloads': downloads
-    })
-  }, next)
-};
-
-
 module.exports = pub;

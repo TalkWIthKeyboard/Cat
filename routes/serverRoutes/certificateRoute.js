@@ -53,20 +53,5 @@ pub.getCertificate = (req, res, next) => {
 };
 
 
-/**
- * 分页获取资质证书
- * @param req
- * @param res
- * @param next
- */
-pub.getCertificateByPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Certificate, (page, certificates) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'certificates': certificates
-    })
-  }, next)
-};
-
 
 module.exports = pub;

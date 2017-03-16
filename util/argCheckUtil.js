@@ -39,13 +39,17 @@ pub.createArgAndCheck = (body, arg, module, scb, fcb) => {
 
   // 融合arg的params部分和body部分
   if (arg.params) {
-    checkArg = _.union(arg.params, arg.body);
+    checkArg = arg.body;
+    _.mapObject(arg.params, (value, key) => {
+      checkArg[key] = value;
+    });
   }
 
   // 检测arg的body和params部分
   _.map(_.values(checkArg), (value) => {
     flag = !value && typeof value == "boolean" ? false : flag;
   });
+
 
   flag ? scb(arg) : fcb();
 };

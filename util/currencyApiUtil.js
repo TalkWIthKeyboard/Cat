@@ -5,9 +5,11 @@
 
 const pub = {},
   errorInfo = require('./../conf/basicConf').ERROR_INFO,
+  Promise = require('promise'),
   argOps = require('./argCheckUtil'),
   resSuccessHandler = require('./resReturnUtil').resSuccessHandler,
   resErrorHandler = require('./resReturnUtil').resErrorHandler,
+  promiseUtil = require('./promiseUtil'),
   _ = require('underscore');
 
 
@@ -163,10 +165,17 @@ pub.currencyGetApiByPage = (req, res, modelClass, scb, next) => {
   arg.params.page = parseInt(req.params.page) || false;
 
   argOps.createArgAndCheck(null, arg, null, (arg) => {
-    modelClass.findAllByPage(arg.params.page, (err, data) => {
-      if (err) return next(err);
-      scb(arg.params.page, data);
-    })
+    let promiseList = [
+      promiseUtil.getAllByPagePromise(modelClass, arg.params.page),
+      promiseUtil.getAllCountPromise(modelClass)
+    ];
+    Promise.all(promiseList).then((results) => {
+      let data = results[0],
+        pageCount = results[1];
+      scb(arg.params.page, pageCount, data);
+    }).catch((err) => {
+      next(err);
+    });
   }, () => {
     resErrorHandler(res, errorInfo.REQUEST_ERR)
   });

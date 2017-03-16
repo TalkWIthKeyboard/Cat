@@ -53,20 +53,4 @@ pub.getSuccessExample = (req, res, next) => {
 };
 
 
-/**
- * 分页获取成功案例
- * @param req
- * @param res
- * @param next
- */
-pub.getSuccessExampleByPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, SuccessExample, (page, examples) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'examples': examples
-    })
-  }, next)
-};
-
-
 module.exports = pub;

@@ -2,7 +2,55 @@
  * Created by CoderSong on 17/3/16.
  */
 
-let pub = {};
+let pub = {},
+  SuccessExample = require('./../../models/SuccessExampleModel'),
+  Product = require('./../../models/ProductModel'),
+  Download = require('./../../models/DownloadModel'),
+  Configure = require('./../../models/ConfigureModel'),
+  Certificate = require('./../../models/CertificateModel'),
+  New = require('./../../models/NewModel'),
+  newType = require('./../../conf/basicConf').NEW_TYPE,
+  currencyApiUtil = require('./../../util/currencyApiUtil'),
+  argOps = require('./../../util/argCheckUtil'),
+  promiseUtil = require('./../../util/promiseUtil'),
+  Promise = require('promise'),
+  resSuccessHandler = require('./../../util/resReturnUtil').resSuccessHandler,
+  resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler;
+
+/**
+ * 按种类分页获取
+ * @param req
+ * @param res
+ * @param type
+ * @param next
+ */
+let getInfoByPageAndType = (req, res, type, next) => {
+  let arg = {};
+  arg.params = {};
+  arg.params.page = parseInt(req.params.page) || false;
+
+  argOps.createArgAndCheck(null, arg, null, (arg) => {
+    let promiseList = [
+      promiseUtil.getNewsByPagePromise(type.number, arg.params.page),
+      promiseUtil.getAllByTypePromise(type.number)
+    ];
+
+    Promise.all(promiseList).then((results) => {
+      let jsonRes = {},
+        data = results[0],
+        pageCount = results[1];
+
+      jsonRes[type.info_en] = data;
+      jsonRes['page'] = arg.params.page + 1;
+      jsonRes['pageCount'] = pageCount;
+      resSuccessHandler(res, jsonRes)
+    }).catch((err) => {
+      next(err);
+    });
+  }, () => {
+    resErrorHandler(res, errorInfo.REQUEST_ERR)
+  })
+};
 
 /**
  * 管理端的页面
@@ -11,7 +59,7 @@ let pub = {};
  * @param next
  */
 pub.manageIndexPage = (req, res, next) => {
-  res.render('serverPage/test', {
+  res.render('manage/test', {
     "layout": false
   });
 };
@@ -29,27 +77,19 @@ pub.manageContactPage = (req, res, next) => {
 };
 
 /**
- * 新闻相关的页面
- * @param req
- * @param res
- * @param next
- */
-pub.manageNewPage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
-};
-
-/**
  * 成功案例的页面
  * @param req
  * @param res
  * @param next
  */
 pub.manageExamplePage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  currencyApiUtil.currencyGetApiByPage(req, res, SuccessExample, (page, pageCount, examples) => {
+    resSuccessHandler(res, {
+      'page': page + 1,
+      'pageCount': pageCount,
+      'examples': examples
+    })
+  }, next)
 };
 
 /**
@@ -59,9 +99,13 @@ pub.manageExamplePage = (req, res, next) => {
  * @param next
  */
 pub.manageConfigurePage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  currencyApiUtil.currencyGetApiByPage(req, res, Configure, (page, pageCount, configures) => {
+    resSuccessHandler(res, {
+      'page': page + 1,
+      'pageCount': pageCount,
+      'configures': configures
+    })
+  }, next)
 };
 
 /**
@@ -71,9 +115,15 @@ pub.manageConfigurePage = (req, res, next) => {
  * @param next
  */
 pub.manageCertificatePage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  currencyApiUtil.currencyGetApiByPage(req, res, Certificate, (page, pageCount, certificates) => {
+    console.log(pageCount);
+    res.render('managePage/certificate', {
+      'page': page + 1,
+      'pageCount': pageCount,
+      'certificates': certificates,
+      "layout": false
+    });
+  }, next)
 };
 
 /**
@@ -83,9 +133,13 @@ pub.manageCertificatePage = (req, res, next) => {
  * @param next
  */
 pub.manageDownloadPage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
+    resSuccessHandler(res, {
+      'page': page + 1,
+      'pageCount': pageCount,
+      'downloads': downloads
+    })
+  }, next)
 };
 
 /**
@@ -95,9 +149,13 @@ pub.manageDownloadPage = (req, res, next) => {
  * @param next
  */
 pub.manageProductPage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  currencyApiUtil.currencyGetApiByPage(req, res, Product, (page, pageCount, downloads) => {
+    resSuccessHandler(res, {
+      'page': page + 1,
+      'pageCount': pageCount,
+      'downloads': downloads
+    })
+  }, next)
 };
 
 /**
@@ -113,15 +171,43 @@ pub.manageAboutMePage = (req, res, next) => {
 };
 
 /**
+ * 新闻相关的页面
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.manageNewsPage = (req, res, next) => {
+  getInfoByPageAndType(req, res, newType.NEWS, next);
+};
+
+/**
  * 技术支持的页面
  * @param req
  * @param res
  * @param next
  */
 pub.manageTechnologyPage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  getInfoByPageAndType(req, res, newType.TECHNOLOGY, next);
+};
+
+/**
+ * 行业动态的页面
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.manageDynamicPage = (req, res, next) => {
+  getInfoByPageAndType(req, res, newType.DYNAMIC, next);
+};
+
+/**
+ * 产品新闻的页面
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.manageProductPage = (req, res, next) => {
+  getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
 };
 
 module.exports = pub;

@@ -57,22 +57,6 @@ pub.getConfigure = (req, res, next) => {
 
 
 /**
- * 分页获取系统配置
- * @param req
- * @param res
- * @param next
- */
-pub.getConfigureByPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Configure, (page, configures) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'configures': configures
-    })
-  }, next)
-};
-
-
-/**
  * 根据key值查询obj
  * @param req
  * @param res

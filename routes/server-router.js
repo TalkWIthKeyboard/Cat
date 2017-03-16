@@ -22,9 +22,7 @@ router.post('/new', newRouter.createNew);
 router.put('/new/:id', newRouter.updateNew);
 router.delete('/new/:id', newRouter.deleteNew);
 router.get('/new/:id', newRouter.getNew);
-router.get('/news/page/:page', newRouter.getNewByPage);
 router.get('/new/lookHistory/:id', newRouter.addLookNum);
-router.get('/technology/page/:page', newRouter.getTechnologyByPage);
 
 // 产品相关路由
 router.post('/product', productRouter.createProduct);
@@ -38,21 +36,18 @@ router.post('/example', successExampleRouter.createSuccessExample);
 router.put('/example/:id', successExampleRouter.updateSuccessExample);
 router.delete('/example/:id', successExampleRouter.deleteSuccessExample);
 router.get('/example/:id', successExampleRouter.getSuccessExample);
-router.get('/example/page/:page', successExampleRouter.getSuccessExampleByPage);
 
 // 资质证书相关路由
 router.post('/certificate', certificateRouter.createCertificate);
 router.put('/certificate/:id', certificateRouter.updateCertificate);
 router.delete('/certificate/:id', certificateRouter.deleteCertificate);
 router.get('/certificate/:id', certificateRouter.getCertificate);
-router.get('/certificate/page/:page', certificateRouter.getCertificateByPage);
 
 // 系统配置相关路由
 router.post('/configure', configureRouter.createConfigure);
 router.put('/configure/:id', configureRouter.updateConfigure);
 router.delete('/configure/:id', configureRouter.deleteConfigure);
 router.get('/configure/:id', configureRouter.getConfigure);
-router.get('/configure/page/:page', configureRouter.getConfigureByPage);
 router.get('/configure/key/:key', configureRouter.getConfigureByKey);
 
 // 下载文件相关路由
@@ -60,6 +55,5 @@ router.post('/download', downloadRouter.createDownload);
 router.put('/download/:id', downloadRouter.updateDownload);
 router.delete('/download/:id', downloadRouter.deleteDownload);
 router.get('/download/:id', downloadRouter.getDownload);
-router.get('/download/page/:page', downloadRouter.getDownloadByPage);
 
 module.exports = router;
