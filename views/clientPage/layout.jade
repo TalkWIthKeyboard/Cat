@@ -15,22 +15,20 @@ html
         $(
           function () {
             var type = ['产品展示', '新闻中心', '技术支持', '成功案例', '资质证书', '关于我们', '联系我们'],
-            lis = $('ul.nav li'),
-            isMain = true
-
-            for (var i = 1; i < 8; i++) {
-              if (type[i - 1] === `${conf.title}`) {
-                lis[i].removeClass('bg-sub')
-                lis[i].addClass('bg-dot')
-                isMain = false
-              }
-            }
-
-            if (isMain) {
-              lis[0].removeClass('bg-sub')
-              lis[0].addClass('bg-dot')
+            lis = $('ul.nav li')
+            
+            if (!${!!conf}) {
+              $(lis[0]).removeClass('bg-sub')
+              $(lis[0]).addClass('bg-dot')
+            } else {
+              for (var i = 1; i != 8; i++) {
+                if (type[i - 1] === '${conf ? conf.title : ''}') {
+                  $(lis[i]).removeClass('bg-sub')
+                  $(lis[i]).addClass('bg-dot')
+                  isMain = false
+                }
+              }  
             }
           }
-        )
-      `
+        )`
     script= script
