@@ -116,7 +116,6 @@ pub.manageConfigurePage = (req, res, next) => {
  */
 pub.manageCertificatePage = (req, res, next) => {
   currencyApiUtil.currencyGetApiByPage(req, res, Certificate, (page, pageCount, certificates) => {
-    console.log(pageCount);
     res.render('managePage/certificate', {
       'page': page + 1,
       'pageCount': pageCount,

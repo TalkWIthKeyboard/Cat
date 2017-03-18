@@ -4,17 +4,40 @@
 extends layout
 
 block content
-    table#dataTables-example.table.table-striped.table-bordered.table-hover
-        thead
-            tr
-                th 资质证书名
-                th 更新时间
-                th 操作
-        tbody#data-tbody
-            tr.odd.gradeX
-                td Win 95+
-                td 4
-                td.center X
+  // 列表
+  table#dataTables-example.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th 资质证书名
+        th 更新时间
+        th 操作
+    tbody
+      each certificate in certificates
+        tr.odd.gradeX
+          td=certificate.name
+          td=moment(certificate.meta.updateAt).calendar()
+          td
+            button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${certificate._id}`)  修改
 
-    script.
+  // 模态框
+  #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true')
+            | ×
+          h4#myModalLabel.modal-title
+            | 修改资质证书
+        .modal-body
+          form.form-horizontal
+            .row
+              .input-field.col.s6
+                input#name.validate(placeholder='Placeholder', type='text')
+                label(for='name') 证书名
+
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal')
+            | 关闭
+          button#sureChangeBtn.btn.btn-primary(type='button')
+            | 确定
 
