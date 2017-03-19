@@ -8,7 +8,6 @@ let pub = {},
   Download = require('./../../models/DownloadModel'),
   Configure = require('./../../models/ConfigureModel'),
   Certificate = require('./../../models/CertificateModel'),
-  New = require('./../../models/NewModel'),
   newType = require('./../../conf/basicConf').NEW_TYPE,
   currencyApiUtil = require('./../../util/currencyApiUtil'),
   argOps = require('./../../util/argCheckUtil'),
@@ -205,7 +204,7 @@ pub.manageDynamicPage = (req, res, next) => {
  * @param res
  * @param next
  */
-pub.manageProductPage = (req, res, next) => {
+pub.manageProductNewsPage = (req, res, next) => {
   getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
 };
 

@@ -71,6 +71,12 @@ exports.ERROR_INFO = {
   UPLOADING_TYPE_ERR: {
     'number': 421,
     'value': '上传文件的格式错误'
+  },
+
+  // 管理员错误码
+  ADMIN_ERR: {
+    'number': 430,
+    'value': '管理员账号/密码错误'
   }
 };
 

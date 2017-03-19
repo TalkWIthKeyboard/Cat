@@ -19,8 +19,8 @@ router.get('/download/page/:page', manageRouter.manageDownloadPage);
 router.get('/product/page/:page', manageRouter.manageProductPage);
 router.get('/technology/page/:page', manageRouter.manageTechnologyPage);
 router.get('/news/page/:page', manageRouter.manageNewsPage);
-router.get('/dynamic/page/:page', manageRouter.manageDynamicPage);
-router.get('/product/page/:page', manageRouter.manageProductPage);
+router.get('/news/dynamic/page/:page', manageRouter.manageDynamicPage);
+router.get('/news/product/page/:page', manageRouter.manageProductNewsPage);
 
 
 module.exports = router;

@@ -49,8 +49,7 @@ pub.createArgAndCheck = (body, arg, module, scb, fcb) => {
   _.map(_.values(checkArg), (value) => {
     flag = !value && typeof value == "boolean" ? false : flag;
   });
-
-
+  
   flag ? scb(arg) : fcb();
 };
 

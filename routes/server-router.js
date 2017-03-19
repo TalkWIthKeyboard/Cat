@@ -12,6 +12,7 @@ let router = require('express').Router(),
   certificateRouter = require('./serverRoutes/certificateRoute'),
   configureRouter = require('./serverRoutes/configureRoute'),
   downloadRouter = require('./serverRoutes/downloadRoute'),
+  adminRouter = require('./serverRoutes/adminRoute'),
   uploadingRouter = require('./serverRoutes/uploadingRoute');
 
 // 联系方式相关路由
@@ -56,6 +57,12 @@ router.post('/download', downloadRouter.createDownload);
 router.put('/download/:id', downloadRouter.updateDownload);
 router.delete('/download/:id', downloadRouter.deleteDownload);
 router.get('/download/:id', downloadRouter.getDownload);
+
+// 管理员路由
+router.post('/admin', adminRouter.createAdmin);
+router.delete('/admin/:id', adminRouter.deleteAdmin);
+router.put('/admin/:id', adminRouter.updateAdmin);
+router.post('/admin/in', adminRouter.checkAdmin);
 
 // 上传文件的处理路由
 router.post('/file/uploading', uploadingRouter.uploadingFile);
