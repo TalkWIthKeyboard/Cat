@@ -11,7 +11,8 @@ let router = require('express').Router(),
   successExampleRouter = require('./serverRoutes/successExampleRoute'),
   certificateRouter = require('./serverRoutes/certificateRoute'),
   configureRouter = require('./serverRoutes/configureRoute'),
-  downloadRouter = require('./serverRoutes/downloadRoute');
+  downloadRouter = require('./serverRoutes/downloadRoute'),
+  uploadingRouter = require('./serverRoutes/uploadingRoute');
 
 // 联系方式相关路由
 router.post('/contact', contactInformation.createContact);
@@ -55,5 +56,8 @@ router.post('/download', downloadRouter.createDownload);
 router.put('/download/:id', downloadRouter.updateDownload);
 router.delete('/download/:id', downloadRouter.deleteDownload);
 router.get('/download/:id', downloadRouter.getDownload);
+
+// 上传文件的处理路由
+router.post('/file/uploading', uploadingRouter.uploadingFile);
 
 module.exports = router;

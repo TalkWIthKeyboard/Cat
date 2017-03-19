@@ -4,6 +4,11 @@
 extends layout
 
 block content
+  // 上传组件测试
+  form(method='post', action='/server/file/uploading', enctype='multipart/form-data')
+    input(name='inputFile', type='file', multiple='mutiple')
+    input(name='btnUp', type='submit',value='上传')
+
   // 列表
   table#dataTables-example.table.table-striped.table-bordered.table-hover
     thead

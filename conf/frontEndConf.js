@@ -7,7 +7,7 @@ exports.itemsPerPage = {
 
 exports.aboutMe = {
   title: '关于我们',
-  info:  [
+  info: [
     {
       title: '公司简介',
       url: baseUrl + '/aboutMe'

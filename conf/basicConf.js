@@ -61,5 +61,28 @@ exports.ERROR_INFO = {
   EXIST_ERR: {
     'number': 404,
     'value': '已经存在该对象'
+  },
+
+  // 上传文件错误码
+  UPLOADING_ERR: {
+    'number': 420,
+    'value': '上传文件失败'
+  },
+  UPLOADING_TYPE_ERR: {
+    'number': 421,
+    'value': '上传文件的格式错误'
+  }
+};
+
+exports.FILE_TYPE = {
+
+  JPG: {
+    'number': 1,
+    'value': 'image/jpeg'
+  },
+
+  PNG: {
+    'number': 2,
+    'value': 'image/png'
   }
 };
