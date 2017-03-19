@@ -23,7 +23,6 @@ block content
           td=moment(certificate.meta.updateAt).calendar()
           td
             button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${certificate._id}`)  修改
-
   // 模态框
   #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
@@ -37,12 +36,11 @@ block content
           form.form-horizontal
             .row
               .input-field.col.s6
-                input#name.validate(placeholder='Placeholder', type='text')
+                input#name.validate(type='text')
                 label(for='name') 证书名
 
         .modal-footer
-          button.btn.btn-default(type='button', data-dismiss='modal')
+          button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
             | 关闭
           button#sureChangeBtn.btn.btn-primary(type='button')
             | 确定
-

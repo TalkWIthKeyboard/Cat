@@ -38,7 +38,19 @@ html
     // Custom Js
     script(src='/assets/js/custom-scripts.js')
 
-  body
+    style.
+      .modal {
+        background-color: transparent;
+        box-shadow: none;
+      }
+      td {
+        vertical-align: middle !important;
+      }
+      a {
+        cursor: pointer;
+      }
+
+body
     #wrapper
       nav.navbar.navbar-default.top-navbar(role='navigation')
         .navbar-header
@@ -52,6 +64,17 @@ html
             strong 力田后台管理
           #sideNav(href='')
             i.material-icons.dp48 toc
+        ul.nav.navbar-top-links.navbar-right
+          li
+            a.dropdown-button.waves-effect.waves-dark(href='#!', data-activates='admin-dropdown')
+              i.fa.fa-user.fa-fw
+              b Admin
+              i.material-icons.right arrow_drop_down
+            ul#admin-dropdown.dropdown-content.dropdown-tasks.w250
+              li
+                a(href='#')
+                  i.fa.fa-sign-out.fa-fw
+                  |  Logout
       // /. NAV TOP
       nav.navbar-default.navbar-side(role='navigation')
         .sidebar-collapse
@@ -63,7 +86,7 @@ html
                 span.fa.arrow
               ul.nav.nav-second-level
                 li
-                  a(href='form.html') 企业新闻
+                  a(href='/magage/news/page/1') 企业新闻
                 li
                   a(href='form.html') 产品新闻
                 li
@@ -79,11 +102,17 @@ html
                 li
                   a(href='form.html') 下载文件
             li
-              a.waves-effect.waves-dark(href='form.html') 产品
+              a.waves-effect.waves-dark(href='/manage/product/page/1')
+                i.fa.fa-sitemap
+                | 产品
             li
-              a.waves-effect.waves-dark(href='form.html') 成功案例
+              a.waves-effect.waves-dark(href='/manage/example/page/1')
+                i.fa.fa-sitemap
+                | 成功案例
             li
-              a.waves-effect.waves-dark(href='form.html') 资质证书
+              a.waves-effect.waves-dark(href='/manage/certificate/page/1')
+                i.fa.fa-sitemap
+                | 资质证书
             li
               a.waves-effect.waves-dark(href='form.html')
                 i.fa.fa-sitemap
@@ -98,6 +127,6 @@ html
                   a(href='form.html') 联系方式
       #page-wrapper
         .header
-          h1.page-header Dashboard
+          h1.page-header= title
         #page-inner
           block content

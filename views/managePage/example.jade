@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .row
+    each e in examples
+      .col-lg-3.col-md-4.col-sm-12
+        .card
+          .card-image.waves-effect.waves-block.waves-light
+            img(src=`${e.img}`)
+          .card-content
+            span.card-title.grey-text.text-darken-4= e.schoolName
+            p
+              a#changeBtn(type='button', data-toggle='modal', data-target='#createModal', data-id=``) 修改
+  #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true')
+            | ×
+          h4#myModalLabel.modal-title
+            | 修改成功案例
+        .modal-body
+          form.form-horizontal
+            .row
+              .input-field.col.s6
+                input#name.validate(type='text')
+                label(for='name') 学校名
+
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
+            | 关闭
+          button#sureChangeBtn.btn.btn-primary(type='button')
+            | 确定
