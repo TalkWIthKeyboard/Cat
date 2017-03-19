@@ -181,7 +181,10 @@ pub.manageAboutMePage = (req, res, next) => {
  * @param next
  */
 pub.manageNewsPage = (req, res, next) => {
-  getInfoByPageAndType(req, res, newType.NEWS, next);
+  res.render('managePage/login', {
+    layout: false
+  })
+  // getInfoByPageAndType(req, res, newType.NEWS, next);
 };
 
 /**

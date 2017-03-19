@@ -1,0 +1,88 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title 力田磁电科技
+
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    link(rel='stylesheet', href='/assets/materialize/css/materialize.min.css', media='screen,projection')
+    // Bootstrap Styles
+    link(href='/assets/css/bootstrap.css', rel='stylesheet')
+    // FontAwesome Styles
+    link(href='/assets/css/font-awesome.css', rel='stylesheet')
+    // Morris Chart Styles
+    link(href='/assets/js/morris/morris-0.4.3.min.css', rel='stylesheet')
+    // Custom Styles
+    link(href='/assets/css/custom-styles.css', rel='stylesheet')
+    // Google Fonts
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='/assets/js/Lightweight-Chart/cssCharts.css')
+
+    // jQuery Js
+    script(src='/assets/js/jquery-1.10.2.js')
+    // Bootstrap Js
+    script(src='/assets/js/bootstrap.min.js')
+    script(src='/assets/materialize/js/materialize.min.js')
+    // Metis Menu Js
+    script(src='/assets/js/jquery.metisMenu.js')
+    // Morris Chart Js
+    script(src='/assets/js/morris/raphael-2.1.0.min.js')
+    script(src='/assets/js/morris/morris.js')
+    script(src='/assets/js/easypiechart.js')
+    script(src='/assets/js/easypiechart-data.js')
+    script(src='/assets/js/Lightweight-Chart/jquery.chart.js')
+    // Custom Js
+    script(src='/assets/js/custom-scripts.js')
+
+    style.
+      .modal {
+        background-color: transparent;
+        box-shadow: none;
+      }
+body
+  .card.col-lg-4.col-lg-offset-4(style='position: absolute; top: 50%; transform: translateY(-50%)')
+    .card-action
+      | 管理员登录
+    .card-content
+      form.col.s12
+        .row
+          .input-field.col.s12
+            input#username.validate(type='text')
+            label(for='username') 用户名
+        .row
+          .input-field.col.s12
+            input#password.validate(type='password')
+            label(for='password') 密码
+        .row
+          a.btn.waves-light.waves-effect(style='padding: 6px 20px; margin: 0 5px 0 0;') 登录
+          a#changeBtn.btn.btn-primary.waves-effect(type='button', data-toggle='modal', data-target='#signupModel', style='padding: 6px 20px; margin: 0 5px 0 0;') 注册
+      .clearBoth
+  // 模态框
+  #signupModel.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true')
+            | ×
+          h4#myModalLabel.modal-title
+            | 注册
+        .modal-body
+          form.form-horizontal
+            .row
+              .input-field.col.s6
+                input#signup-username.validate(type='text')
+                label(for='signup-username') 用户名
+            .row
+              .input-field.col.s6
+                input#signup-password.validate(type='password')
+                label(for='signup-password') 密码
+            .row
+              .input-field.col.s6
+                input#signup-repeat-password.validate(type='password')
+                label(for='signup-repeat-password') 重复密码
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
+            | 关闭
+          button#sureChangeBtn.btn.btn-primary(type='button')
+            | 确定

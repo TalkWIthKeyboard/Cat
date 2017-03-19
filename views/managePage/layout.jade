@@ -64,6 +64,17 @@ body
             strong 力田后台管理
           #sideNav(href='')
             i.material-icons.dp48 toc
+        ul.nav.navbar-top-links.navbar-right
+          li
+            a.dropdown-button.waves-effect.waves-dark(href='#!', data-activates='admin-dropdown')
+              i.fa.fa-user.fa-fw
+              b Admin
+              i.material-icons.right arrow_drop_down
+            ul#admin-dropdown.dropdown-content.dropdown-tasks.w250
+              li
+                a(href='#')
+                  i.fa.fa-sign-out.fa-fw
+                  |  Logout
       // /. NAV TOP
       nav.navbar-default.navbar-side(role='navigation')
         .sidebar-collapse
