@@ -1,24 +1,16 @@
-//
-   Created by CoderSong on 17/3/16.
-
 extends layout
 
 block content
-  // 列表
-  table#dataTables-example.table.table-striped.table-bordered.table-hover
-    thead
-      tr
-        th 资质证书名
-        th 更新时间
-        th 操作
-    tbody
-      each certificate in certificates
-        tr.odd.gradeX
-          td=certificate.name
-          td=moment(certificate.meta.updateAt).calendar()
-          td
-            button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${certificate._id}`)  修改
-  // 模态框
+  .row
+    each e in examples
+      .col-lg-3.col-md-4.col-sm-12
+        .card
+          .card-image.waves-effect.waves-block.waves-light
+            img(src=`${e.img}`)
+          .card-content
+            span.card-title.grey-text.text-darken-4= e.schoolName
+            p
+              a#changeBtn(type='button', data-toggle='modal', data-target='#createModal', data-id=``) 修改
   #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -26,13 +18,13 @@ block content
           button.close(type='button', data-dismiss='modal', aria-hidden='true')
             | ×
           h4#myModalLabel.modal-title
-            | 修改资质证书
+            | 修改成功案例
         .modal-body
           form.form-horizontal
             .row
               .input-field.col.s6
                 input#name.validate(type='text')
-                label(for='name') 证书名
+                label(for='name') 学校名
 
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')

@@ -59,7 +59,7 @@ let getInfoByPageAndType = (req, res, type, next) => {
  * @param next
  */
 pub.manageIndexPage = (req, res, next) => {
-  res.render('manage/test', {
+  res.render('managePage/test', {
     "layout": false
   });
 };
@@ -84,10 +84,13 @@ pub.manageContactPage = (req, res, next) => {
  */
 pub.manageExamplePage = (req, res, next) => {
   currencyApiUtil.currencyGetApiByPage(req, res, SuccessExample, (page, pageCount, examples) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'pageCount': pageCount,
-      'examples': examples
+    console.log(examples)
+    res.render('managePage/example', {
+      layout: false,
+      page: page + 1,
+      pageCount: pageCount,
+      examples: examples,
+      title: '成功案例'
     })
   }, next)
 };
@@ -148,11 +151,13 @@ pub.manageDownloadPage = (req, res, next) => {
  * @param next
  */
 pub.manageProductPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Product, (page, pageCount, downloads) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'pageCount': pageCount,
-      'downloads': downloads
+  currencyApiUtil.currencyGetApiByPage(req, res, Product, (page, pageCount, products) => {
+    console.log(products)
+    res.render('managePage/product', {
+      layout: false,
+      page: page + 1,
+      pageCount: pageCount,
+      products: products
     })
   }, next)
 };
@@ -205,8 +210,8 @@ pub.manageDynamicPage = (req, res, next) => {
  * @param res
  * @param next
  */
-pub.manageProductPage = (req, res, next) => {
-  getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
-};
+// pub.manageProductPage = (req, res, next) => {
+//   getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
+// };
 
 module.exports = pub;
