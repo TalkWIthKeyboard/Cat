@@ -21,6 +21,8 @@ html
 
     // jQuery Js
     script(src='/assets/js/jquery-1.10.2.js')
+    // 页面JS
+    script(src='/scripts/managePage/login.js')
     // Bootstrap Js
     script(src='/assets/js/bootstrap.min.js')
     script(src='/assets/materialize/js/materialize.min.js')
@@ -55,7 +57,7 @@ body
             input#password.validate(type='password')
             label(for='password') 密码
         .row
-          a.btn.waves-light.waves-effect(style='padding: 6px 20px; margin: 0 5px 0 0;') 登录
+          a#loginBtn.btn.waves-light.waves-effect(style='padding: 6px 20px; margin: 0 5px 0 0;') 登录
           a#changeBtn.btn.btn-primary.waves-effect(type='button', data-toggle='modal', data-target='#signupModel', style='padding: 6px 20px; margin: 0 5px 0 0;') 注册
       .clearBoth
   // 模态框

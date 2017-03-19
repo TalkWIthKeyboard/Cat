@@ -216,4 +216,5 @@ pub.manageProductNewsPage = (req, res, next) => {
   getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
 };
 
+
 module.exports = pub;
