@@ -72,17 +72,24 @@ body
         .modal-body
           form.form-horizontal
             .row
-              .input-field.col.s6
+              .input-field.col.s12
                 input#signup-username.validate(type='text')
                 label(for='signup-username') 用户名
             .row
-              .input-field.col.s6
+              .input-field.col.s12
                 input#signup-password.validate(type='password')
                 label(for='signup-password') 密码
             .row
-              .input-field.col.s6
+              .input-field.col.s12
                 input#signup-repeat-password.validate(type='password')
                 label(for='signup-repeat-password') 重复密码
+            .form-group.form-group-sm
+              label.col-sm-2.control-label 管理员类型
+              .col-sm-6
+                select#adminType.form-control
+                  option ADMIN
+                  option WEB_MANAGER
+                  option API_USER
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
             | 关闭

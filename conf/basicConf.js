@@ -10,25 +10,29 @@ exports.NEW_TYPE = {
   NEWS: {
     'number': 1,
     'info_cn': '企业新闻',
-    'info_en': 'news'
+    'info_en': 'news',
+    'base_url': '/manage/news/page/'
   },
 
   TECHNOLOGY: {
     'number': 2,
     'info_cn': '技术支持',
-    'info_en': 'technology'
+    'info_en': 'technology',
+    'base_url': '/manage/technology/page/'
   },
 
   DYNAMIC: {
     'number': 3,
     'info_cn': '行业动态',
-    'info_en': 'dynamic'
+    'info_en': 'dynamic',
+    'base_url': '/manage/news/dynamic/page/'
   },
 
   PRODUCT_NEW: {
     'number': 4,
     'info_cn': '产品新闻',
-    'info_en': 'productNew'
+    'info_en': 'productNew',
+    'base_url': '/manage/news/product/page/'
   }
 };
 

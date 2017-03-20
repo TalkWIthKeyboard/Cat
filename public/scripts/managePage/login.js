@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function () {
-
   // 登录按钮的响应事件
   $('#loginBtn').click(function () {
     var username = $('#username').val() || false;
@@ -31,16 +30,18 @@ $(document).ready(function () {
 
   // 注册按钮的响应事件
   $('#sureChangeBtn').click(function () {
-    var username = $('signup-username').val() || false;
-    var password = $('signup-password').val() || false;
-    var rePassword = $('signup-repeat-password').val() || false;
-    if (username && password && rePassword && password === rePassword) {
+    var username = $('#signup-username').val() || false;
+    var password = $('#signup-password').val() || false;
+    var rePassword = $('#signup-repeat-password').val() || false;
+    var type = $('#adminType').val() || false;
+    if (username && password && type && rePassword && password === rePassword) {
       $.ajax({
         url: '/server/admin',
         type: 'POST',
         data: {
           'username': username,
-          'password': password
+          'password': password,
+          'type': type
         },
         success: function (res) {
           if (res.code.number == 200) {

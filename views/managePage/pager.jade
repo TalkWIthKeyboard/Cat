@@ -1,0 +1,13 @@
+//
+   Created by CoderSong on 17/3/20.
+.nav(aria-label="Page navigation")
+  ul.pagination
+    li
+      a(href=`${baseUrl + 1}`, aria-label="Previous")
+        span(aria-hidden="true") «
+    each i in [-2, -1, 0, 1, 2].filter((val) => (page + val > 0 && page + val <= pageCount))
+      li
+        a(href=`${baseUrl + (page + i)}`)=page + i
+    li
+      a(href=`${baseUrl + pageCount}`, aria-label="Next")
+        span(aria-hidden="true") »

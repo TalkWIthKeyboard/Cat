@@ -12,6 +12,7 @@ let pub = {},
   currencyApiUtil = require('./../../util/currencyApiUtil'),
   argOps = require('./../../util/argCheckUtil'),
   promiseUtil = require('./../../util/promiseUtil'),
+  basicConf = require('./../../conf/basicConf'),
   Promise = require('promise'),
   autConf = require('./../../conf/authenticationConf'),
   autUtil = require('./../../util/authenticationUtil'),
@@ -23,9 +24,10 @@ let pub = {},
  * @param req
  * @param res
  * @param type
+ * @param admin
  * @param next
  */
-let getInfoByPageAndType = (req, res, type, next) => {
+let getInfoByPageAndType = (req, res, type, admin, next) => {
   let arg = {};
   arg.params = {};
   arg.params.page = parseInt(req.params.page) || false;
@@ -42,8 +44,10 @@ let getInfoByPageAndType = (req, res, type, next) => {
         pageCount = results[1];
 
       jsonRes[type.info_en] = data;
+      jsonRes['admin'] = admin.username;
       jsonRes['page'] = arg.params.page + 1;
-      jsonRes['pageCount'] = pageCount;
+      jsonRes['pageCount'] = Math.ceil(pageCount / basicConf.pageSize);
+      jsonRes['baseUrl'] = type['base_url'];
       resSuccessHandler(res, jsonRes)
     }).catch((err) => {
       next(err);
@@ -62,7 +66,8 @@ let getInfoByPageAndType = (req, res, type, next) => {
 pub.manageIndexPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
     res.render('managePage/test', {
-      "layout": false
+      admin: admin.username,
+      layout: false
     });
   });
 };
@@ -92,8 +97,10 @@ pub.manageExamplePage = (req, res, next) => {
     currencyApiUtil.currencyGetApiByPage(req, res, SuccessExample, (page, pageCount, examples) => {
       res.render('managePage/example', {
         layout: false,
+        baseUrl: '/manage/example/page/',
+        admin: admin.username,
         page: page + 1,
-        pageCount: pageCount,
+        pageCount: Math.floor(pageCount / basicConf.pageSize),
         examples: examples,
         title: '成功案例'
       })
@@ -112,7 +119,7 @@ pub.manageConfigurePage = (req, res, next) => {
     currencyApiUtil.currencyGetApiByPage(req, res, Configure, (page, pageCount, configures) => {
       resSuccessHandler(res, {
         'page': page + 1,
-        'pageCount': pageCount,
+        'pageCount': Math.floor(pageCount / basicConf.pageSize),
         'configures': configures
       })
     }, next)
@@ -129,10 +136,12 @@ pub.manageCertificatePage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
     currencyApiUtil.currencyGetApiByPage(req, res, Certificate, (page, pageCount, certificates) => {
       res.render('managePage/certificate', {
-        'page': page + 1,
-        'pageCount': pageCount,
-        'certificates': certificates,
-        "layout": false
+        admin: admin.username,
+        baseUrl: '/manage/certificate/page/',
+        page: page + 1,
+        pageCount: Math.ceil(pageCount / basicConf.pageSize),
+        certificates: certificates,
+        layout: false
       });
     }, next)
   });
@@ -149,7 +158,7 @@ pub.manageDownloadPage = (req, res, next) => {
     currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
       resSuccessHandler(res, {
         'page': page + 1,
-        'pageCount': pageCount,
+        'pageCount': Math.ceil(pageCount / basicConf.pageSize),
         'downloads': downloads
       })
     }, next)
@@ -167,8 +176,10 @@ pub.manageProductPage = (req, res, next) => {
     currencyApiUtil.currencyGetApiByPage(req, res, Product, (page, pageCount, products) => {
       res.render('managePage/product', {
         layout: false,
+        baseUrl: '/manage/product/page/',
+        admin: admin.username,
         page: page + 1,
-        pageCount: pageCount,
+        pageCount: Math.ceil(pageCount / basicConf.pageSize),
         products: products
       })
 
@@ -198,7 +209,7 @@ pub.manageAboutMePage = (req, res, next) => {
  */
 pub.manageNewsPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
-    getInfoByPageAndType(req, res, newType.NEWS, next);
+    getInfoByPageAndType(req, res, newType.NEWS, admin, next);
   });
 };
 
@@ -210,7 +221,7 @@ pub.manageNewsPage = (req, res, next) => {
  */
 pub.manageTechnologyPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
-    getInfoByPageAndType(req, res, newType.TECHNOLOGY, next);
+    getInfoByPageAndType(req, res, newType.TECHNOLOGY, admin, next);
   });
 };
 
@@ -222,7 +233,7 @@ pub.manageTechnologyPage = (req, res, next) => {
  */
 pub.manageDynamicPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
-    getInfoByPageAndType(req, res, newType.DYNAMIC, next);
+    getInfoByPageAndType(req, res, newType.DYNAMIC, admin, next);
   });
 };
 
@@ -234,7 +245,7 @@ pub.manageDynamicPage = (req, res, next) => {
  */
 pub.manageProductNewsPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
-    getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
+    getInfoByPageAndType(req, res, newType.PRODUCT_NEW, admin, next);
   });
 };
 
@@ -246,7 +257,7 @@ pub.manageProductNewsPage = (req, res, next) => {
  */
 pub.adminLoginPage = (req, res, next) => {
   res.render('managePage/login', {
-    "layout": false
+    layout: false
   });
 };
 

@@ -1,6 +1,11 @@
 extends layout
 
 block content
+  script(src="/scripts/managePage/product.js")
+  script(src="/ueditor/ueditor.config.js",charset="utf-8")
+  script(src="/ueditor/ueditor.all.min.js",charset="utf-8")
+  script(src="/ueditor/lang/zh-cn/zh-cn.js",charset="utf-8")
+
   table#dataTables-example.table.table-striped.table-bordered.table-hover
     thead
       tr
@@ -18,3 +23,52 @@ block content
           td= moment(product.meta.updateAt).calendar()
           td
             button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${product._id}`) 修改
+  include pager
+    
+  #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true')
+            | ×
+          h4#myModalLabel.modal-title
+            | 修改产品信息
+        .modal-body
+          form.form-horizontal
+            .row
+              .input-field.col.s12
+                input#name.validate(type='text')
+                label(for='name') 产品名
+            .row
+              .input-field.col.s12
+                input#model.validate(type='text')
+                label(for='name') 产品型号
+            .form-group.form-group-sm
+              label.col-sm-2.control-label 产品型号
+              .col-sm-6
+                select#series.form-control
+                  option 电磁铁
+                  option 退磁机
+                  option 充磁机
+                  option 密度仪
+                  option 标准磁体
+                  option 高斯计
+                  option 磁通计
+            script#content(type="text/plain",style="width:100%;height:100px;")
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
+            | 关闭
+          button#sureChangeBtn.btn.btn-primary(type='button')
+            | 确定
+  script.
+    var ue = UE.getEditor('content', {
+      toolbars: [['undo', 'redo', '|',
+      'bold', 'italic', 'underline', '|',
+      'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+      'simpleupload', '|',
+      'imagenone', 'imageleft', 'imageright', 'imagecenter']]
+    });
+
+    setTimeout(function() {
+        ue.execCommand('drafts');
+    }, 500);

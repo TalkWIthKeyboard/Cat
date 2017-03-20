@@ -68,7 +68,7 @@ body
           li
             a.dropdown-button.waves-effect.waves-dark(href='#!', data-activates='admin-dropdown')
               i.fa.fa-user.fa-fw
-              b Admin
+              b=`${admin}`
               i.material-icons.right arrow_drop_down
             ul#admin-dropdown.dropdown-content.dropdown-tasks.w250
               li
@@ -80,27 +80,27 @@ body
         .sidebar-collapse
           ul#main-menu.nav
             li
-              a.waves-effect.waves-dark(href='form.html')
+              a.waves-effect.waves-dark
                 i.fa.fa-sitemap
                 |  新闻信息
                 span.fa.arrow
               ul.nav.nav-second-level
                 li
-                  a(href='/magage/news/page/1') 企业新闻
+                  a(href='/manage/news/page/1') 企业新闻
                 li
-                  a(href='form.html') 产品新闻
+                  a(href='/manage/news/product/page/1') 产品新闻
                 li
-                  a(href='form.html') 行业新闻
+                  a(href='/manage/news/dynamic/page/1') 行业新闻
             li
-              a.waves-effect.waves-dark(href='form.html')
+              a.waves-effect.waves-dark
                 i.fa.fa-sitemap
                 |  技术支持
                 span.fa.arrow
               ul.nav.nav-second-level
                 li
-                  a(href='form.html') 技术文档
+                  a(href='/manage/technology/page/1') 技术文档
                 li
-                  a(href='form.html') 下载文件
+                  a(href='/manage/download/page/1') 下载文件
             li
               a.waves-effect.waves-dark(href='/manage/product/page/1')
                 i.fa.fa-sitemap
@@ -114,17 +114,17 @@ body
                 i.fa.fa-sitemap
                 | 资质证书
             li
-              a.waves-effect.waves-dark(href='form.html')
+              a.waves-effect.waves-dark
                 i.fa.fa-sitemap
                 |  系统信息
                 span.fa.arrow
               ul.nav.nav-second-level
                 li
-                  a(href='form.html') 系统配置
+                  a(href='/manage/configure/page/1') 系统配置
                 li
-                  a(href='form.html') 关于我们
+                  a(href='/manage/aboutme') 关于我们
                 li
-                  a(href='form.html') 联系方式
+                  a(href='/manage/contact') 联系方式
       #page-wrapper
         .header
           h1.page-header= title
