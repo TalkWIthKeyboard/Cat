@@ -4,6 +4,7 @@
 
 let pub = {},
   SuccessExample = require('./../../models/SuccessExampleModel'),
+  Product = require('./../../models/ProductModel'),
   Download = require('./../../models/DownloadModel'),
   Configure = require('./../../models/ConfigureModel'),
   Certificate = require('./../../models/CertificateModel'),
@@ -163,12 +164,14 @@ pub.manageDownloadPage = (req, res, next) => {
  */
 pub.manageProductPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
-    currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
-      resSuccessHandler(res, {
-        'page': page + 1,
-        'pageCount': pageCount,
-        'downloads': downloads
+    currencyApiUtil.currencyGetApiByPage(req, res, Product, (page, pageCount, products) => {
+      res.render('managePage/product', {
+        layout: false,
+        page: page + 1,
+        pageCount: pageCount,
+        products: products
       })
+
     }, next)
   });
 };

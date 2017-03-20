@@ -20,8 +20,6 @@ pub.identityCheck = (req, res, op, scb) => {
   // 是否登录
   if (admin) {
     // 检查登录用户的权限
-    console.log(autConf.AUTH_ROLE[admin.type].permission);
-    console.log(op);
     if (_.indexOf(autConf.AUTH_ROLE[admin.type].permission, op.key) == -1) {
       return resUtil.resErrorHandler(res, error.IDENTIFY_ERR);
     } else {
