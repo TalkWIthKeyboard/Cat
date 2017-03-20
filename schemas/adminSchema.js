@@ -10,7 +10,7 @@ let AdminSchema = new mongoose.Schema({
   // 密码
   password: String,
   // 用户类型(使用API/登录后台)
-  type: Number,
+  type: String,
   meta: {
     createAt: {
       type: Date,

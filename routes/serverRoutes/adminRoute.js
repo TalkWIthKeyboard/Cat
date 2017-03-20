@@ -80,9 +80,12 @@ pub.checkAdmin = (req, res, next) => {
     Promise.all(promiseList).then((results) => {
       let admin = results[0],
         pwd = results[1].toString();
-      (admin && pwd === admin.password)
-        ? resUtil.resSuccessHandler(res)
-        : resUtil.resErrorHandler(res, error.ADMIN_ERR)
+      if (admin && pwd === admin.password) {
+        req.session.admin = admin;
+        resUtil.resSuccessHandler(res)
+      } else {
+        resUtil.resErrorHandler(res, error.ADMIN_ERR)
+      }
     }).catch((err) => {
       next(err)
     })

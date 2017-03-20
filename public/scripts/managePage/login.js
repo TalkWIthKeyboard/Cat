@@ -18,7 +18,7 @@ $(document).ready(function () {
         },
         success: function (res) {
           if (res.code.number === 200) {
-            alert('登陆成功');
+            location.href = '/manage/index'
           } else {
             alert('用户名/密码错误');
           }
@@ -44,7 +44,7 @@ $(document).ready(function () {
         },
         success: function (res) {
           if (res.code.number == 200) {
-            alert('注册成功')
+            location.reload();
           } else {
             alert('用户名/密码错误')
           }

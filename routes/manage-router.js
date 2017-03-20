@@ -22,5 +22,7 @@ router.get('/news/page/:page', manageRouter.manageNewsPage);
 router.get('/news/dynamic/page/:page', manageRouter.manageDynamicPage);
 router.get('/news/product/page/:page', manageRouter.manageProductNewsPage);
 
+router.get('/admin', manageRouter.adminLoginPage);
+
 
 module.exports = router;

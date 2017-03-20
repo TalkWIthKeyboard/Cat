@@ -77,6 +77,10 @@ exports.ERROR_INFO = {
   ADMIN_ERR: {
     'number': 430,
     'value': '管理员账号/密码错误'
+  },
+  IDENTIFY_ERR: {
+    'number': 431,
+    'value': '账号权限存在问题'
   }
 };
 

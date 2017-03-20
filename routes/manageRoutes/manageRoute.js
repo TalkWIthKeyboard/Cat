@@ -4,7 +4,6 @@
 
 let pub = {},
   SuccessExample = require('./../../models/SuccessExampleModel'),
-  Product = require('./../../models/ProductModel'),
   Download = require('./../../models/DownloadModel'),
   Configure = require('./../../models/ConfigureModel'),
   Certificate = require('./../../models/CertificateModel'),
@@ -13,6 +12,8 @@ let pub = {},
   argOps = require('./../../util/argCheckUtil'),
   promiseUtil = require('./../../util/promiseUtil'),
   Promise = require('promise'),
+  autConf = require('./../../conf/authenticationConf'),
+  autUtil = require('./../../util/authenticationUtil'),
   resSuccessHandler = require('./../../util/resReturnUtil').resSuccessHandler,
   resErrorHandler = require('./../../util/resReturnUtil').resErrorHandler;
 
@@ -58,8 +59,10 @@ let getInfoByPageAndType = (req, res, type, next) => {
  * @param next
  */
 pub.manageIndexPage = (req, res, next) => {
-  res.render('managePage/test', {
-    "layout": false
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    res.render('managePage/test', {
+      "layout": false
+    });
   });
 };
 
@@ -70,9 +73,11 @@ pub.manageIndexPage = (req, res, next) => {
  * @param next
  */
 pub.manageContactPage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    res.render('', {
+      "layout": false
+    })
+  });
 };
 
 /**
@@ -82,16 +87,17 @@ pub.manageContactPage = (req, res, next) => {
  * @param next
  */
 pub.manageExamplePage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, SuccessExample, (page, pageCount, examples) => {
-    console.log(examples)
-    res.render('managePage/example', {
-      layout: false,
-      page: page + 1,
-      pageCount: pageCount,
-      examples: examples,
-      title: '成功案例'
-    })
-  }, next)
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    currencyApiUtil.currencyGetApiByPage(req, res, SuccessExample, (page, pageCount, examples) => {
+      res.render('managePage/example', {
+        layout: false,
+        page: page + 1,
+        pageCount: pageCount,
+        examples: examples,
+        title: '成功案例'
+      })
+    }, next)
+  });
 };
 
 /**
@@ -101,13 +107,15 @@ pub.manageExamplePage = (req, res, next) => {
  * @param next
  */
 pub.manageConfigurePage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Configure, (page, pageCount, configures) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'pageCount': pageCount,
-      'configures': configures
-    })
-  }, next)
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    currencyApiUtil.currencyGetApiByPage(req, res, Configure, (page, pageCount, configures) => {
+      resSuccessHandler(res, {
+        'page': page + 1,
+        'pageCount': pageCount,
+        'configures': configures
+      })
+    }, next)
+  });
 };
 
 /**
@@ -117,14 +125,16 @@ pub.manageConfigurePage = (req, res, next) => {
  * @param next
  */
 pub.manageCertificatePage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Certificate, (page, pageCount, certificates) => {
-    res.render('managePage/certificate', {
-      'page': page + 1,
-      'pageCount': pageCount,
-      'certificates': certificates,
-      "layout": false
-    });
-  }, next)
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    currencyApiUtil.currencyGetApiByPage(req, res, Certificate, (page, pageCount, certificates) => {
+      res.render('managePage/certificate', {
+        'page': page + 1,
+        'pageCount': pageCount,
+        'certificates': certificates,
+        "layout": false
+      });
+    }, next)
+  });
 };
 
 /**
@@ -134,13 +144,15 @@ pub.manageCertificatePage = (req, res, next) => {
  * @param next
  */
 pub.manageDownloadPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
-    resSuccessHandler(res, {
-      'page': page + 1,
-      'pageCount': pageCount,
-      'downloads': downloads
-    })
-  }, next)
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
+      resSuccessHandler(res, {
+        'page': page + 1,
+        'pageCount': pageCount,
+        'downloads': downloads
+      })
+    }, next)
+  });
 };
 
 /**
@@ -150,15 +162,15 @@ pub.manageDownloadPage = (req, res, next) => {
  * @param next
  */
 pub.manageProductPage = (req, res, next) => {
-  currencyApiUtil.currencyGetApiByPage(req, res, Product, (page, pageCount, products) => {
-    console.log(products)
-    res.render('managePage/product', {
-      layout: false,
-      page: page + 1,
-      pageCount: pageCount,
-      products: products
-    })
-  }, next)
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
+      resSuccessHandler(res, {
+        'page': page + 1,
+        'pageCount': pageCount,
+        'downloads': downloads
+      })
+    }, next)
+  });
 };
 
 /**
@@ -168,9 +180,11 @@ pub.manageProductPage = (req, res, next) => {
  * @param next
  */
 pub.manageAboutMePage = (req, res, next) => {
-  res.render('', {
-    "layout": false
-  })
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    res.render('', {
+      "layout": false
+    })
+  });
 };
 
 /**
@@ -180,10 +194,9 @@ pub.manageAboutMePage = (req, res, next) => {
  * @param next
  */
 pub.manageNewsPage = (req, res, next) => {
-  res.render('managePage/login', {
-    layout: false
-  })
-  // getInfoByPageAndType(req, res, newType.NEWS, next);
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    getInfoByPageAndType(req, res, newType.NEWS, next);
+  });
 };
 
 /**
@@ -193,7 +206,9 @@ pub.manageNewsPage = (req, res, next) => {
  * @param next
  */
 pub.manageTechnologyPage = (req, res, next) => {
-  getInfoByPageAndType(req, res, newType.TECHNOLOGY, next);
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    getInfoByPageAndType(req, res, newType.TECHNOLOGY, next);
+  });
 };
 
 /**
@@ -203,7 +218,9 @@ pub.manageTechnologyPage = (req, res, next) => {
  * @param next
  */
 pub.manageDynamicPage = (req, res, next) => {
-  getInfoByPageAndType(req, res, newType.DYNAMIC, next);
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    getInfoByPageAndType(req, res, newType.DYNAMIC, next);
+  });
 };
 
 /**
@@ -213,8 +230,21 @@ pub.manageDynamicPage = (req, res, next) => {
  * @param next
  */
 pub.manageProductNewsPage = (req, res, next) => {
-  getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
+  autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
+    getInfoByPageAndType(req, res, newType.PRODUCT_NEW, next);
+  });
 };
 
+/**
+ * 管理员登录页面
+ * @param req
+ * @param res
+ * @param next
+ */
+pub.adminLoginPage = (req, res, next) => {
+  res.render('managePage/login', {
+    "layout": false
+  });
+};
 
 module.exports = pub;

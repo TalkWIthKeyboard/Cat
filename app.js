@@ -3,11 +3,11 @@
 const port = process.env.PORT || 3000,
   express = require('express'),
   path = require('path'),
-  _ = require('underscore'),
   mongoose = require('mongoose'),
   ueditor = require('ueditor'),
   partials = require('express-partials'),
   bodyParser = require('body-parser'),
+  session = require('express-session'),
   app = express();
 
 mongoose.connect('mongodb://localhost:27017/Cat');
@@ -28,6 +28,12 @@ app.locals.moment = require('moment');
 
 // 监听端口
 app.listen(port);
+
+// session设置
+app.use(session({
+  secret: 'cat app', //secret的值建议使用随机字符串
+  cookie: {maxAge: 60 * 1000 * 30} // 过期时间（毫秒）
+}));
 
 // 路由分流
 const serverRouter = require('./routes/server-router'),
