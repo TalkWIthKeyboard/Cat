@@ -8,7 +8,7 @@ const mongoose = require('mongoose'),
 let ProductSchema = new mongoose.Schema({
   // 产品名
   name: String,
-  // 产品系列
+  // 产品系列（映射basicConf中的PRODUCT_SERISE的Number）
   series: String,
   // 产品型号
   model: String,
@@ -17,10 +17,10 @@ let ProductSchema = new mongoose.Schema({
   // 产品参数
   params: String,
   // 相关产品
-  relatedProducts: [{
-    type : mongoose.Schema.ObjectId,
-    ref : 'Product'
-  }],
+  // relatedProducts: [{
+  //   type : mongoose.Schema.ObjectId,
+  //   ref : 'Product'
+  // }],
   meta: {
     createAt: {
       type: Date,

@@ -18,13 +18,13 @@ block content
       each product in products
         tr.odd.gradeX
           td= product.name
-          td= product.series
+          td= productNum[product.series].cn
           td= product.model
-          td= moment(product.meta.updateAt).calendar()
+          td= moment(product.meta.updateAt).format('L')
           td
             button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${product._id}`) 修改
   include pager
-    
+
   #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -44,16 +44,20 @@ block content
                 input#model.validate(type='text')
                 label(for='name') 产品型号
             .form-group.form-group-sm
-              label.col-sm-2.control-label 产品型号
+              label.col-sm-2.control-label 产品系列
               .col-sm-6
                 select#series.form-control
-                  option 电磁铁
-                  option 退磁机
-                  option 充磁机
-                  option 密度仪
-                  option 标准磁体
-                  option 高斯计
-                  option 磁通计
+                  option= productSeries['ELECTROMAGNET'].cn
+                  option= productSeries['DEMAGNETIZATION_MACHINE'].cn
+                  option= productSeries['MAGNETIZING_MACHINE'].cn
+                  option= productSeries['DENSITY_METER'].cn
+                  option= productSeries['STANDARD_MAGNET'].cn
+                  option= productSeries['GAUSS_METER'].cn
+                  option= productSeries['MAGNETIC_FLUX_METER'].cn
+            .form-group.form-group-sm
+              label.col-sm-2.control-label 产品参数
+              .col-sm-10
+                textarea#params.form-control(type="text", style="height:80px;width:100%")
             script#content(type="text/plain",style="width:100%;height:100px;")
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')

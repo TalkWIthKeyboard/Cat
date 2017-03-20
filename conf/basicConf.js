@@ -100,3 +100,79 @@ exports.FILE_TYPE = {
     'value': 'image/png'
   }
 };
+
+exports.PRODUCT_SERIES = {
+
+  ELECTROMAGNET: {
+    'number': 0,
+    'cn': '电磁铁',
+    'value': 'ELECTROMAGNET'
+  },
+
+  DEMAGNETIZATION_MACHINE: {
+    'number': 1,
+    'cn': '退磁机',
+    'value': 'DEMAGNETIZATION_MACHINE'
+  },
+
+  MAGNETIZING_MACHINE: {
+    'number': 2,
+    'cn': '充磁机',
+    'value': 'MAGNETIZING_MACHINE'
+  },
+
+  DENSITY_METER: {
+    'number': 3,
+    'cn': '密度仪',
+    'value': 'DENSITY_METER'
+  },
+
+  STANDARD_MAGNET: {
+    'number': 4,
+    'cn': '标准磁体',
+    'value': 'STANDARD_MAGNET'
+  },
+
+  GAUSS_METER: {
+    'number': 5,
+    'cn': '高斯计',
+    'value': 'GAUSS_METER'
+  },
+
+  MAGNETIC_FLUX_METER: {
+    'number': 6,
+    'cn': '磁通计',
+    'value': 'MAGNETIC_FLUX_METER'
+  }
+};
+
+exports.PRODUCT_NUM = {
+  0: {
+    'value': 'ELECTROMAGNET',
+    'cn': '电磁铁'
+  },
+  1: {
+    'cn': '退磁机',
+    'value': 'DEMAGNETIZATION_MACHINE'
+  },
+  2: {
+    'cn': '充磁机',
+    'value': 'MAGNETIZING_MACHINE'
+  },
+  3: {
+    'cn': '密度仪',
+    'value': 'DENSITY_METER'
+  },
+  4: {
+    'cn': '标准磁体',
+    'value': 'STANDARD_MAGNET'
+  },
+  5: {
+    'cn': '高斯计',
+    'value': 'GAUSS_METER'
+  },
+  6: {
+    'cn': '磁通计',
+    'value': 'MAGNETIC_FLUX_METER'
+  }
+};

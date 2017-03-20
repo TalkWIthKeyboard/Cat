@@ -3,7 +3,8 @@
  */
 
 let pub = {},
-  _ = require('underscore');
+  _ = require('underscore'),
+  productSeries = require('./../conf/basicConf').PRODUCT_SERIES;
 
 /**
  * 创建实体类参数并检查
@@ -63,6 +64,20 @@ pub.copyArg = (entity, arg) => {
   _.mapObject(arg, (val, key) => {
     entity[key] = val;
   });
+};
+
+/**
+ * 通过中文查找产品的index
+ * @param cn
+ * @returns {number}
+ */
+pub.productIndex = (cn) => {
+  _.map(productSeries, (obj, index) => {
+    if (obj.cn === cn) {
+      return index;
+    }
+  });
+  return -1;
 };
 
 module.exports = pub;

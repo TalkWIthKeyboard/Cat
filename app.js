@@ -25,6 +25,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // 静态文件的路径
 app.use(express.static(path.join(__dirname, 'public')));
 app.locals.moment = require('moment');
+app.locals.productSeries = require('./conf/basicConf').PRODUCT_SERIES;
+app.locals.productNum = require('./conf/basicConf').PRODUCT_NUM;
 
 // 监听端口
 app.listen(port);
