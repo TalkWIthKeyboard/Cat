@@ -48,7 +48,8 @@ let getInfoByPageAndType = (req, res, type, admin, next) => {
       jsonRes['page'] = arg.params.page + 1;
       jsonRes['pageCount'] = Math.ceil(pageCount / basicConf.pageSize);
       jsonRes['baseUrl'] = type['base_url'];
-      resSuccessHandler(res, jsonRes)
+      jsonRes['layout'] = false;
+      res.render(type.base_page, jsonRes);
     }).catch((err) => {
       next(err);
     });

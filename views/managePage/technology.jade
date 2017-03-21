@@ -1,0 +1,59 @@
+//
+   Created by CoderSong on 17/3/21.
+
+extends layout
+
+block content
+  script(src="/scripts/managePage/technology.js")
+
+  table#dataTables-example.table.table-striped.table-bordered.table-hover(style='table-layout:fixed')
+    thead
+      tr
+        th 主标题
+        th 副标题
+        th 浏览次数
+        th 更新日期
+        th 操作
+    tbody
+      each tec in technology
+        tr.odd.gradeX
+          td= tec.title
+          td= tec.subtitle
+          td= tec.look
+          td= moment(tec.meta.updateAt).format('L')
+          td
+            button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${tec._id}`) 修改
+  include pager
+
+  #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true')
+            | ×
+          h4#myModalLabel.modal-title
+            | 修改技术文档
+        .modal-body
+          form.form-horizontal
+            input.hidden#inputFile(type='file', multiple='mutiple')
+            .row
+              .input-field.col.s12
+                input#title.validate(type='text')
+                label(for='title') 主标题
+            .row
+              .input-field.col.s12
+                input#subtitle.validate(type='text')
+                label(for='subtitle') 副标题
+            .row
+              input#type.hidden(type='text', disabled='')
+            .row
+              input#look.hidden(type='text', disabled='')
+            .form-group.form-group-sm
+              label.col-sm-2.control-label 详细内容
+              .col-sm-10
+                textarea#content.form-control(type="text", style="height:80px;width:100%")
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
+            | 关闭
+          button#sureChangeBtn.btn.btn-primary(type='button')
+            | 确定
