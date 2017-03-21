@@ -4,26 +4,18 @@
 extends layout
 
 block content
-  // 上传组件测试
-  form(method='post', action='/server/file/uploading', enctype='multipart/form-data')
-    input(name='inputFile', type='file', multiple='mutiple')
-    input(name='btnUp', type='submit',value='上传')
+  script(src="/scripts/managePage/certificate.js")
 
-  // 列表
-  table#dataTables-example.table.table-striped.table-bordered.table-hover
-    thead
-      tr
-        th 资质证书名
-        th 更新时间
-        th 操作
-    tbody
-      each certificate in certificates
-        tr.odd.gradeX
-          td=certificate.name
-          td=moment(certificate.meta.updateAt).calendar()
-          td
-            button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${certificate._id}`)  修改
-  // 模态框
+  .row
+    each e in certificates
+      .col-lg-3.col-md-4.col-sm-12
+        .card
+          .card-image.waves-effect.waves-block.waves-light
+            img(src=`${e.img}`)
+          .card-content
+            span.card-title.grey-text.text-darken-4= e.name
+            p
+              a#changeBtn(type='button', data-toggle='modal', data-target='#createModal', data-id=`${e._id}`) 修改
   #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -33,9 +25,12 @@ block content
           h4#myModalLabel.modal-title
             | 修改资质证书
         .modal-body
+          img#certificateImg(src='/images/system/singStreet1.jpg', alt='资质证书', style='width: 50%;height:250px')
+          form.hidden(method='post', action='/server/file/uploading', enctype='multipart/form-data')
+            input#chooseImg(name='inputFile', type='file', multiple='mutiple')
           form.form-horizontal
             .row
-              .input-field.col.s6
+              .input-field.col.s12
                 input#name.validate(type='text')
                 label(for='name') 证书名
 

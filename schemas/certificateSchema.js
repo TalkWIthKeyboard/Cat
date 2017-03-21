@@ -5,10 +5,10 @@
 const mongoose = require('mongoose'),
   config = require('./../conf/basicConf');
 
-let SuccessExampleSchema = new mongoose.Schema({
+let CertificateSchema = new mongoose.Schema({
   // 证书图片
   img: String,
-  // 证书图片
+  // 证书名称
   name: String,
   meta: {
     createAt: {
@@ -22,7 +22,7 @@ let SuccessExampleSchema = new mongoose.Schema({
   }
 });
 
-SuccessExampleSchema.pre('save', function (next) {
+CertificateSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now()
   }
@@ -32,7 +32,7 @@ SuccessExampleSchema.pre('save', function (next) {
   next()
 });
 
-SuccessExampleSchema.statics = {
+CertificateSchema.statics = {
   findAllByPage: function (nowPage, cb) {
     return this
       .find({})
@@ -68,4 +68,4 @@ SuccessExampleSchema.statics = {
   }
 };
 
-module.exports = SuccessExampleSchema;
+module.exports = CertificateSchema;

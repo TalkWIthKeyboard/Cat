@@ -1,21 +1,21 @@
 /**
- * Created by CoderSong on 17/3/16.
+ * Created by CoderSong on 17/3/21.
  */
 
 $(document).ready(function () {
   // 修改按钮点击事件
   $('#changeBtn').click(function () {
     var id = $(this).attr('data-id');
-    var url = '/server/certificate/' + id;
+    var url = '/server/example/' + id;
 
     $.ajax({
       url: url,
       type: 'GET',
       success: function (res) {
         if (res.code.number == 200) {
-          var data = res.data.certificate;
-          $('#certificateImg').attr('src', data.img);
-          $('#name').val(data.name);
+          var data = res.data.example;
+          $('#exampleImg').attr('src', data.img);
+          $('#name').val(data.schoolName);
           $('#sureChangeBtn').attr('data-id', data._id);
         } else {
           alert('网络状态差！请刷新页面！')
@@ -27,7 +27,7 @@ $(document).ready(function () {
   /**
    * 上传组件逻辑
    */
-  $('#certificateImg').click(function () {
+  $('#exampleImg').click(function () {
     $('#chooseImg').click();
   });
 
@@ -35,7 +35,7 @@ $(document).ready(function () {
     var file = this.files[0];
     uploadingImg(file);
   });
-
+  
   function uploadingImg(f) {
     var form = new FormData();
     form.append('file', f);
@@ -47,7 +47,7 @@ $(document).ready(function () {
       contentType: false,
       success: function (res) {
         if (res.code.number === 200) {
-          $('#certificateImg').attr('src', res.data);
+          $('#exampleImg').attr('src', res.data);
         } else {
           alert('上传图片失败，请重新上传！')
         }
@@ -58,16 +58,16 @@ $(document).ready(function () {
   // 保存按钮的点击事件
   $('#sureChangeBtn').click(function () {
     var id = $(this).attr('data-id');
-    var url = '/server/certificate/' + id;
+    var url = '/server/example/' + id;
     var name = $('#name').val() || false;
-    var img = $('#certificateImg').attr('src') || false;
+    var img = $('#exampleImg').attr('src') || false;
 
     if (name && img) {
       $.ajax({
         url: url,
         type: 'PUT',
         data: {
-          name: name,
+          schoolName: name,
           img: img
         },
         success: function (res) {
@@ -79,7 +79,7 @@ $(document).ready(function () {
         }
       })
     } else {
-      alert('请至少填写资质证书名称！');
+      alert('请至少填写成功案例名称！');
     }
   })
 });

@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  script(src="/scripts/managePage/example.js")
+
   .row
     each e in examples
       .col-lg-3.col-md-4.col-sm-12
@@ -10,7 +12,7 @@ block content
           .card-content
             span.card-title.grey-text.text-darken-4= e.schoolName
             p
-              a#changeBtn(type='button', data-toggle='modal', data-target='#createModal', data-id=``) 修改
+              a#changeBtn(type='button', data-toggle='modal', data-target='#createModal', data-id=`${e._id}`) 修改
   #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -20,9 +22,12 @@ block content
           h4#myModalLabel.modal-title
             | 修改成功案例
         .modal-body
+          img#exampleImg(src='/images/system/singStreet1.jpg', alt='成功案例', style='width: 50%;height:250px')
+          form.hidden(method='post', action='/server/file/uploading', enctype='multipart/form-data')
+            input#chooseImg(name='inputFile', type='file', multiple='mutiple')
           form.form-horizontal
             .row
-              .input-field.col.s6
+              .input-field.col.s12
                 input#name.validate(type='text')
                 label(for='name') 学校名
 
