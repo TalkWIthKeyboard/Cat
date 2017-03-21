@@ -40,7 +40,7 @@ $(document).ready(function () {
     var form = new FormData();
     form.append('file', f);
     $.ajax({
-      url: '/server/file/uploading',
+      url: '/server/file/uploading/flag/false',
       type: 'POST',
       data: form,
       processData: false,

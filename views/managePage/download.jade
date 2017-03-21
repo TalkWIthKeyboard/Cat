@@ -1,0 +1,58 @@
+//
+   Created by CoderSong on 17/3/21.
+
+extends layout
+
+block content
+  script(src="/scripts/managePage/download.js")
+
+  table#dataTables-example.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th 下载文件
+        th 详细描述
+        th 下载地址
+        th 更新日期
+        th 操作
+    tbody
+      each download in downloads
+        tr.odd.gradeX
+          td= download.title
+          td= download.content
+          td= download.url
+          td= moment(download.meta.updateAt).format('L')
+          td
+            button#changeBtn.btn.btn-info.btn-sm(type='button', data-toggle='modal', data-target='#createModal', data-id=`${download._id}`) 修改
+  include pager
+
+  #createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true')
+            | ×
+          h4#myModalLabel.modal-title
+            | 修改下载文件
+        .modal-body
+          form.form-horizontal
+            input.hidden#inputFile(type='file', multiple='mutiple')
+            .row
+              .input-field.col.s12
+                input#name.validate(type='text')
+                label(for='name') 文件名
+            .row
+              .input-field.col.s8
+                input#url.validate(type='text', disabled='')
+                label(for='url') 下载地址
+              .col.s4
+                button#urlBtn.btn.btn-primary(type='button')
+                  | 上传
+            .form-group.form-group-sm
+              label.col-sm-2.control-label 详细描述
+              .col-sm-10
+                textarea#content.form-control(type="text", style="height:80px;width:100%")
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal', style='margin-left: 5px;')
+            | 关闭
+          button#sureChangeBtn.btn.btn-primary(type='button')
+            | 确定

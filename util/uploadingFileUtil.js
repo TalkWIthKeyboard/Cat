@@ -10,15 +10,26 @@ let pub = {},
   fs = require('fs'),
   multiparty = require('multiparty');
 
+
 /**
- * 上传单个图片的处理路由
+ * 上传单个文件的处理路由
  * @param req
+ * @param flag 是否检验文件的类型(true为不验证、false为验证)
  * @param scb
  * @param fcb
  */
-pub.uploadingFile = (req, scb, fcb) => {
-  let dir = path.join(__dirname, '..', 'public', 'images', 'uploading') + '/';
-  let reDir = '/' + path.join('images', 'uploading') + '/';
+pub.uploadingFile = (req, flag, scb, fcb) => {
+  let dir = '',
+    reDir = '';
+  // 保存路径
+  if (flag) {
+    dir = path.join(__dirname, '..', 'public', 'file') + '/';
+    reDir = '/' + path.join('file') + '/';
+  } else {
+    dir = path.join(__dirname, '..', 'public', 'images', 'uploading') + '/';
+    reDir = '/' + path.join('images', 'uploading') + '/';
+  }
+
   let form = new multiparty.Form({uploadDir: dir});
   form.parse(req, (err, fileds, files) => {
     if (err) {
@@ -28,7 +39,7 @@ pub.uploadingFile = (req, scb, fcb) => {
       let upladedPath = inputFile.path;
       // 检测是不是符合要求的文件
       if (inputFile.headers['content-type'] == fileType.JPG.value ||
-        inputFile.headers['content-type'] == fileType.PNG.value) {
+        inputFile.headers['content-type'] == fileType.PNG.value || flag) {
         let strLast = _.last(upladedPath.split('/'));
         scb(reDir + strLast)
       } else {

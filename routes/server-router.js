@@ -65,6 +65,6 @@ router.put('/admin/:id', adminRouter.updateAdmin);
 router.post('/admin/in', adminRouter.checkAdmin);
 
 // 上传文件的处理路由
-router.post('/file/uploading', uploadingRouter.uploadingFile);
+router.post('/file/uploading/flag/:flag', uploadingRouter.uploadingFile);
 
 module.exports = router;

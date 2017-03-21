@@ -1,21 +1,22 @@
 /**
- * Created by CoderSong on 17/3/16.
+ * Created by CoderSong on 17/3/21.
  */
 
 $(document).ready(function () {
   // 修改按钮点击事件
   $('#changeBtn').click(function () {
     var id = $(this).attr('data-id');
-    var url = '/server/certificate/' + id;
+    var url = '/server/download/' + id;
 
     $.ajax({
       url: url,
       type: 'GET',
       success: function (res) {
         if (res.code.number == 200) {
-          var data = res.data.certificate;
-          $('#certificateImg').attr('src', data.img);
-          $('#name').val(data.name);
+          var data = res.data.download;
+          $('#name').val(data.title);
+          $('#url').val(data.url);
+          $('#content').val(data.content);
           $('#sureChangeBtn').attr('data-id', data._id);
         } else {
           alert('网络状态差！请刷新页面！')
@@ -27,11 +28,11 @@ $(document).ready(function () {
   /**
    * 上传组件逻辑
    */
-  $('#certificateImg').click(function () {
-    $('#chooseImg').click();
+  $('#urlBtn').click(function () {
+    $('#inputFile').click();
   });
 
-  $('#chooseImg').on('change', function () {
+  $('#inputFile').on('change', function () {
     var file = this.files[0];
     uploadingImg(file);
   });
@@ -40,35 +41,38 @@ $(document).ready(function () {
     var form = new FormData();
     form.append('file', f);
     $.ajax({
-      url: '/server/file/uploading/flag/false',
+      url: '/server/file/uploading/flag/true',
       type: 'POST',
       data: form,
       processData: false,
       contentType: false,
       success: function (res) {
         if (res.code.number === 200) {
-          $('#certificateImg').attr('src', res.data);
+          $('#url').val(res.data);
         } else {
-          alert('上传图片失败，请重新上传！')
+          alert('上传文件失败，请重新上传！')
         }
       }
     });
   }
 
-  // 保存按钮的点击事件
+  // 保存按钮点击事件
   $('#sureChangeBtn').click(function () {
     var id = $(this).attr('data-id');
-    var url = '/server/certificate/' + id;
-    var name = $('#name').val() || false;
-    var img = $('#certificateImg').attr('src') || false;
+    var url = '/server/download/' + id;
 
-    if (name && img) {
+    var title = $('#name').val() || false;
+    var downloadUrl = $('#url').val() || false;
+    var content = $('#content').val();
+
+    if (title && downloadUrl) {
       $.ajax({
         url: url,
         type: 'PUT',
         data: {
-          name: name,
-          img: img
+          title: title,
+          url: downloadUrl,
+          content: content,
         },
         success: function (res) {
           if (res.code.number === 200) {
@@ -79,7 +83,7 @@ $(document).ready(function () {
         }
       })
     } else {
-      alert('请至少填写资质证书名称！');
+      alert('请至少填写下载文件名并上传文件！');
     }
   })
 });

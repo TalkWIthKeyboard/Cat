@@ -14,7 +14,9 @@ let pub = {},
  * @param next
  */
 pub.uploadingFile = (req, res, next) => {
-  uploadUtil.uploadingFile(req, (path) => {
+  let flag = req.params.flag;
+
+  uploadUtil.uploadingFile(req, flag, (path) => {
     resUtil.resSuccessHandler(res, path);
   }, (err) => {
     resUtil.resErrorHandler(res, err);

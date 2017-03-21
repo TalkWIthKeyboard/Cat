@@ -156,11 +156,14 @@ pub.manageCertificatePage = (req, res, next) => {
 pub.manageDownloadPage = (req, res, next) => {
   autUtil.identityCheck(req, res, autConf.OPERATION_TYPE.USE_WEB, (admin) => {
     currencyApiUtil.currencyGetApiByPage(req, res, Download, (page, pageCount, downloads) => {
-      resSuccessHandler(res, {
-        'page': page + 1,
-        'pageCount': Math.ceil(pageCount / basicConf.pageSize),
-        'downloads': downloads
-      })
+      res.render('managePage/download', {
+        admin: admin.username,
+        baseUrl: '/manage/download/page/',
+        page: page + 1,
+        pageCount: Math.ceil(pageCount / basicConf.pageSize),
+        downloads: downloads,
+        layout: false
+      });
     }, next)
   });
 };
